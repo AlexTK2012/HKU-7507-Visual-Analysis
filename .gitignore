@@ -4,6 +4,8 @@
 *.sh
 .vscode
 
+tmp/
+
 data/test.json
 
 json/test.json
