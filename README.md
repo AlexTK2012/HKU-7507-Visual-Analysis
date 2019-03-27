@@ -33,4 +33,8 @@ Term Project for **COMP7507 Visualization and Visual Analytics**.
 
 - human_data.json : All cast and director data: {id,name,job,gender}
 
-## 
+## Run
+
+python3 -m http.server
+
+visit [website](http://localhost:8000)
