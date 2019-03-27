@@ -32,3 +32,5 @@ Term Project for **COMP7507 Visualization and Visual Analytics**.
 - tmdb_top100_data.csv : 100*25, Top 100 movie datasets. Movies Header(20) + Score + Credits Header(4)
 
 - human_data.json : All cast and director data: {id,name,job,gender}
+
+## 

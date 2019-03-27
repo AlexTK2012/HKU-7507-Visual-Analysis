@@ -5,18 +5,14 @@ $(document).ready(function () {
     // 加载 网络图数据
     $(document.getElementById("network-chart")).ready(function () {
         load_json();
-        vis_create_network();
     })
 })
 
 function load_json() {
     console.log("load json");
-    // obj = JSON.parse();
     // <script type="text/javascript" src="../json/network_vis.json"></script>
+    // obj = JSON.parse();
     $.getJSON("./json/network_vis.json", function (json) {
-        // console.log("vis_create_network");
-        // vis_create_network(json);
-    }).done(function(json){
         console.log("vis_create_network");
         vis_create_network(json);
     });
