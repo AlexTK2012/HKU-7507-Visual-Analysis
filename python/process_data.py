@@ -98,8 +98,9 @@ def compute_human_data(dataframe):
     
     print ("导演数!=1 的电影数量 :",count)
     # 对 human_data 去重
-    print("before distinct: ",len(data))
+    print("去重前, 演员+导演 总计人数: ",len(data))
     data = remove_duplicate(data)
+    # 人数还是多，感觉还要进一步筛选
     print("去重后, 演员+导演 总计人数: ",len(data))    
     # python lambda 表达式
     print("导演数量 :",len(list(x for x in data if x['job'] == 'Director')))
@@ -128,7 +129,6 @@ def compute_adjacency_data(dataframe):
                 item = {'id': crew['id'], 'name': crew['name'],
                         'job': 'Director', 'gender': crew['gender']}
                 data.append(item)
-    
         # 遍历行数据中的所有人
         for node in data:
             node_edge = dict()
@@ -138,7 +138,6 @@ def compute_adjacency_data(dataframe):
                     # 默认 node 与 node_next 边值为1
                     node_edge[node_next['id']] = 1
                     # TODO
-    
     return adjacency_data
 
 # 方法2
@@ -149,6 +148,7 @@ def compute_matrix(dataframe, nodes):
     edge_matrix = np.zeros((len(nodes), len(nodes)), dtype=np.int)
     # node_matrix 保存点矩阵, node_matrix[x] 代表x人与node_matrix[x] 人共事过。
     node_matrix = np.zeros(len(nodes), dtype=np.int)
+    
     # 逐行检测:movie_id,title,cast,crew
     for index,row in dataframe.iterrows() :
         # data 保存这部电影中出现过的演员+导演 对应human_data 的序号索引(下标)
@@ -207,7 +207,9 @@ def compute_matrix(dataframe, nodes):
 # 全部数据
 # credits = load_tmdb_credits("./data/tmdb_5000_credits.csv")
 # top100 电影
-credits = load_tmdb_credits("./data/tmdb_top100_data.csv")
+# credits = load_tmdb_credits("./data/tmdb_top100_data.csv")
+# credits = load_tmdb_credits("./tmp/tmdb_top50_data.csv")
+credits = load_tmdb_credits("./tmp/tmdb_top30_data.csv")
 
 human_data = compute_human_data(credits)
 # write_data("./data/human_data.json", human_data)
@@ -216,9 +218,9 @@ human_data = compute_human_data(credits)
 result_edge, result_node = compute_matrix(credits,human_data)
 
 # 保存top100 的分析数据
-write_data("./json/top100_human_data.json", human_data)
-np.savetxt("./json/top100_edge.csv", result_edge, fmt="%d", delimiter=",") 
-np.savetxt("./json/top100_node.csv", result_node, fmt="%d", delimiter=",") 
+# write_data("./json/top100_human_data.json", human_data)
+# np.savetxt("./json/top100_edge.csv", result_edge, fmt="%d", delimiter=",") 
+# np.savetxt("./json/top100_node.csv", result_node, fmt="%d", delimiter=",") 
 
 
 

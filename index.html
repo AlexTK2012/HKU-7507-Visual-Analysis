@@ -2,24 +2,109 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<meta http-equiv="Pragma" content="no-cache" /> 
-		<meta http-equiv="Cache-Control" content="no-cache,must-revalidate"/>
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Cache-Control" content="no-cache,must-revalidate" />
+		<meta http-equiv="content-type" content="text/html; charset=UTF8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="HKU COMP7507 Term Project">
+		<meta name="author" content="LexKaing">
+		<link rel="icon" href="./favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
 		<title>COMP7507 Visualization and Visual Analytics</title>
-		<link rel="stylesheet" href="css/reset.css" />
+
+		<!--加载cdn资源-->
 		<link href="https://cdn.bootcss.com/vis/4.21.0/vis.min.css" rel="stylesheet">
-		
 		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 		<script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
 		<script src="https://cdn.bootcss.com/vis/4.21.0/vis.min.js"></script>
 		<script src="https://cdn.bootcss.com/d3/5.9.2/d3.js"></script>
 
-		<link href="./css/network.css" rel="stylesheet"/>
+		<!-- 加载本地文件 -->
+		<link href="./css/index.css" rel="stylesheet" />
+		<link href="./css/network.css" rel="stylesheet" />
 
 	</head>
 	<body>
-		<div>Welcome!</div>
-		<div class="network">
+		<div class="nav">
+			<div style="width: 5rem; height: 5rem; line-height: 5rem;">
+				<img src="./images/kaggle-logo.png" alt="The Movie Database (TMDb)"
+					style="width: 100px;vertical-align: middle;">
+			</div>
+			<ul class="menu">
+				<li><a href><span>Home</span></a></li>
+				<li><a href="#progress"><span>Progress</span></a></li>
+				<li><a href="#data"><span>Data</span></a></li>
+				<li><a href="#network"><span>Network</span></a></li>
+				<li><a href="https://github.com/AlexTK2012/HKU-7507-Visual-Analysis"
+						target="_blank"><span>Git Repo</span></a></li>
+			</ul>
+		</div>
+
+		<div class="header">
+			<div class="inner">
+				<div class="title">
+					<h1>Visual Analysis of influential films’ composition</h1>
+				</div>
+				<div class="bg"></div>
+			</div>
+		</div>
+		<div class="app">
+			<div class="content">
+				<section>
+					<h2 class="subtitle">Description</h2>
+					<p>This project will provide real-time monitoring and analysing of the
+						public’s attention and satisfaction on air quality. We will develop
+						filters to obtain air quality related messages, based on keyword matching,
+						from the most popular Chinese microblog platforms Sina Weibo. We put the
+						messages into a model, using Spark Streaming to implement real-time
+						analysing and derive results on how dissatisfied the public is about the
+						air quality in their city. The results will be demonstrated in chart
+						format for friendly view. In addition, the results may promote government
+						information disclosure and provide evidence and recommendations for
+						government decision-making.</p>
+				</section>
+				<section id="progress">
+					<h2 class="subtitle">Progress</h2>
+					<div style="text-align: center">TODO </div>
+					<p>
+						This project will provide real-time monitoring and analysing of the
+						public’s attention and satisfaction on air quality. We will develop
+						filters to obtain air quality related messages, based on keyword matching,
+						from the most popular Chinese microblog platforms Sina Weibo. We put the
+						messages into a model, using Spark Streaming to implement real-time
+						analysing and derive results on how dissatisfied the public is about the
+						air quality in their city. The results will be demonstrated in chart
+						format for friendly view. In addition, the results may promote government
+						information disclosure and provide evidence and recommendations for
+						government decision-making.
+
+					</p>
+				</section>
+				<section id="data">
+					<h2 class="subtitle">Data</h2>
+					<div><a href="https://www.kaggle.com/tmdb/tmdb-movie-metadata/version/2">[TMDB
+							5000 Movie Dataset]</a></div>
+					<p>
+						This project will provide real-time monitoring and analysing of the
+						public’s attention and satisfaction on air quality. We will develop
+						filters to obtain air quality related messages, based on keyword matching,
+						from the most popular Chinese microblog platforms Sina Weibo. We put the
+						messages into a model, using Spark Streaming to implement real-time
+						analysing and derive results on how dissatisfied the public is about the
+						air quality in their city. The results will be demonstrated in chart
+						format for friendly view. In addition, the results may promote government
+						information disclosure and provide evidence and recommendations for
+						government decision-making.
+					</p>
+				</section>
+				<section id="network" style="overflow: auto;">
+					<h2 class="subtitle">Network</h2>
+				</section>
+			</div>
+			<div class="footer">
+				Copyright © 2019 Master of Computer Science, Faculty of Engineering, The
+				University of Hong Kong. All rights reserved.
+			</div>
 		</div>
 	</body>
 </html>
-
