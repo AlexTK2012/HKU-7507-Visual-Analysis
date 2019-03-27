@@ -1,10 +1,46 @@
 @charset "utf-8";
 /*******网络图样式**********/
 
-.network {
+.network-chart {
     display: block;
-    width :500px;
-    height: 500px;
-    border-radius:2px;
-	background:rgba(66,66,66,0.4);
+    width :800px;
+    height: 600px;
+    border: 1px solid lightgray;
+}
+
+
+
+/* SVG 图测试 */
+#path_1 {
+    stroke-width: 4;
+    stroke: #78e640;
+    stroke-dashoffset: 7% 7%;
+    stroke-dasharray: 0 35%;
+    -moz-animation: animation 3s ease infinite forwards;
+    -o-animation: animation 3s ease infinite forwards;
+    -webkit-animation: animation 3s ease infinite forwards;
+}
+
+@-webkit-keyframes animation {
+    100% {
+        stroke-dasharray: 7% 7%;
+        stroke-dashoffset: 7%;
+    }
+}
+
+#path_2 {
+    stroke-width: 4;
+    stroke: #78e640;
+    stroke-dashoffset: 7% 7%;
+    stroke-dasharray: 0 35%;
+    -moz-animation: animation 3s ease infinite forwards;
+    -o-animation: animation 3s ease infinite forwards;
+    -webkit-animation: animation2 3s ease infinite forwards;
+}
+
+@-webkit-keyframes animation2 {
+    100% {
+        stroke-dasharray: 7% 7%;
+        stroke-dashoffset: 14%;
+    }
 }
