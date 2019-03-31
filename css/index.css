@@ -37,7 +37,7 @@ html,body {
     left: 0;
     top: 0;
     background: no-repeat center center;
-    background-image: url("../images/banner_one.jpg");
+    background-image: url("../images/banner_0.jpg");
     background-size: cover;
     z-index: -1
 }
