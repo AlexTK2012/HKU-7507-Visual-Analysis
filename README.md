@@ -35,6 +35,8 @@ Term Project for **COMP7507 Visualization and Visual Analytics**.
 
 ## Run
 
+``` python
 python3 -m http.server
+```
 
 visit [website](http://localhost:8000)
