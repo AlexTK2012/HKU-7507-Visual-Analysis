@@ -1,0 +1,42 @@
+.container {
+    margin: 30px auto;
+    width: 600px;
+    height: 300px;
+    border: 1px solid #000;
+}
+
+.webs polygon,
+.lines line {
+    fill: white;
+    fill-opacity: 0.5;
+    stroke: gray;
+    stroke-dasharray: 10 5;
+}
+
+.webs polygon:nth-child(odd) {
+    fill: lightgray;
+}
+
+.areas polygon {
+    fill-opacity: 0.5;
+    stroke-width: 3;
+}
+
+.areas circle {
+    fill: white;
+    stroke-width: 3;
+}
+
+.texts text {
+    text-anchor: middle;
+}
+
+.btn {
+    cursor: pointer;
+    border: solid 1px;
+    width: 80px;
+    height: 30px;
+    /* vertical-align: middle; */
+    display: block;
+    text-align: center;
+}
