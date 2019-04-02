@@ -20,11 +20,18 @@
 	<script src="https://cdn.bootcss.com/vis/4.21.0/vis.min.js"></script>
 	<script src="https://cdn.bootcss.com/d3/5.9.2/d3.js"></script>
 
+	<!-- Google fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
 	<!-- 加载本地文件 -->
 	<link href="./css/index.css" rel="stylesheet" />
 	<link href="./css/network.css" rel="stylesheet" />
+	<link href="./css/radarChart.css" rel="stylesheet" />
 
 	<script src="./js/network.js"></script>
+	<script src="./js/radarChart.js"></script>
+	<script src="./js/loadRadarChart.js"></script>
 </head>
 
 <body>
@@ -106,19 +113,23 @@
 					government decision-making.
 				</p>
 			</section>
+			<a name="radarChart" style="position:relative; top:-80px; display:block; height:0; overflow:hidden;"></a>
+			<section>
+				<h2 class="subtitle">radarChart</h2>
+				<div id="radar-chart" class="radarChart"></div>
+
+			</section>
 			<a name="network" style="position:relative; top:-80px; display:block; height:0; overflow:hidden;"></a>
 			<section>
 				<h2 class="subtitle">Network</h2>
-
-				<svg width="320" height="91" viewBox="0 0 320 91" preserveAspectRatio="xMidYMid meet">
+				<!-- <svg width="320" height="91" viewBox="0 0 320 91" preserveAspectRatio="xMidYMid meet">
 					<symbol id="test-svg">
 						<text text-anchor="middle" x="155" y="64" fill-opacity="0"
 							style="font-size: 82px;">Vis.js</text>
 					</symbol>
 					<use xlink:href="#test-svg" id="path_1"></use>
 					<use xlink:href="#test-svg" id="path_2"></use>
-				</svg>
-
+				</svg> -->
 				<div id="network-chart" class="network-chart"></div>
 			</section>
 		</div>

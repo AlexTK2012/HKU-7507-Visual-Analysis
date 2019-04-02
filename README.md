@@ -40,3 +40,8 @@ python3 -m http.server
 ```
 
 visit [website](http://localhost:8000)
+
+## Dependencies
+
+[Vis.js Network](http://visjs.org/docs/network/)
+[d3.js radar chart](https://www.visualcinnamon.com/2015/10/different-look-d3-radar-chart.html)
