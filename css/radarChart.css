@@ -1,18 +1,47 @@
+.radar {
+    display: flex;
+}
+
 .radarChart {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 300;
-    fill: #242424;
+    /* font-family: 'Open Sans', sans-serif; */
+    font-size: 18px;
+    /* font-weight: 300; */
+    /* fill: #242424; */
     text-align: center;
-    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+    /* text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff; */
     cursor: default;
+    border: solid 1px #554141;
+    width: 600px !important;
+    height: 600px !important;
+    display: inline-flex;
 }
 
 .legend {
     font-family: 'Raleway', sans-serif;
     fill: #333333;
+    font-size: 16px;
+    text-anchor: middle;
 }
 
 .tooltip {
     fill: #333333;
+}
+
+.radarBtns {
+    font-size: 14px;
+    border: solid 1px #554141;
+    display: table-cell;
+    overflow: auto;
+}
+
+.radarBtns .radar-checkbox {
+    width: 140px;
+    height: 25px;
+    line-height: 25px;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    display: list-item;
 }

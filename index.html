@@ -18,7 +18,7 @@
 	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 	<script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
 	<script src="https://cdn.bootcss.com/vis/4.21.0/vis.min.js"></script>
-	<script src="https://cdn.bootcss.com/d3/5.9.2/d3.js"></script>
+	<script src="https://cdn.bootcss.com/d3/3.5.17/d3.min.js"></script>
 
 	<!-- Google fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
@@ -64,13 +64,19 @@
 			<section id="description">
 				<h2 class="subtitle">Description</h2>
 				<p>
-					When people define a successful movie, revenue and average rate are two most frequently mentioned factors. For the audience, 
-					they want to know if the unreleased movie is worth watching.  More importantly, from a business perspective, companies desire 
-					to understand how to make great works. In this research, we analyze The Movie Database which has almost 5000 movies, including 
-					attributes such as name, genre, actor, director, average rate, revenue, budget, runtime, original language. We want to seek for 
-					the definition for influential movies in this process , solve problems how genre and budget, effect on rate and revenue, get the
-					 answer for good actors and directors, and find reliable production company. Finally,  to find out which elements are the main 
-					 affecting factors by considering these factors.
+					When people define a successful movie, revenue and average rate are two most frequently mentioned
+					factors. For the audience,
+					they want to know if the unreleased movie is worth watching. More importantly, from a business
+					perspective, companies desire
+					to understand how to make great works. In this research, we analyze The Movie Database which has
+					almost 5000 movies, including
+					attributes such as name, genre, actor, director, average rate, revenue, budget, runtime, original
+					language. We want to seek for
+					the definition for influential movies in this process , solve problems how genre and budget, effect
+					on rate and revenue, get the
+					answer for good actors and directors, and find reliable production company. Finally, to find out
+					which elements are the main
+					affecting factors by considering these factors.
 				</p>
 			</section>
 			<!-- 设置暗锚点 -->
@@ -100,19 +106,28 @@
 				<div><a href="https://www.kaggle.com/tmdb/tmdb-movie-metadata/version/2" target="_blank">[TMDB
 						5000 Movie Dataset]</a></div>
 				<p>
-					When people define a successful movie, revenue and average rate are two most frequently mentioned factors. For the audience, 
-					they want to know if the unreleased movie is worth watching.  More importantly, from a business perspective, companies desire 
-					to understand how to make great works. In this research, we analyze The Movie Database which has almost 5000 movies, including 
-					attributes such as name, genre, actor, director, average rate, revenue, budget, runtime, original language. We want to seek for 
-					the definition for influential movies in this process , solve problems how genre and budget, effect on rate and revenue, get the
-					 answer for good actors and directors, and find reliable production company. Finally,  to find out which elements are the main 
-					 affecting factors by considering these factors.
+					When people define a successful movie, revenue and average rate are two most frequently mentioned
+					factors. For the audience,
+					they want to know if the unreleased movie is worth watching. More importantly, from a business
+					perspective, companies desire
+					to understand how to make great works. In this research, we analyze The Movie Database which has
+					almost 5000 movies, including
+					attributes such as name, genre, actor, director, average rate, revenue, budget, runtime, original
+					language. We want to seek for
+					the definition for influential movies in this process , solve problems how genre and budget, effect
+					on rate and revenue, get the
+					answer for good actors and directors, and find reliable production company. Finally, to find out
+					which elements are the main
+					affecting factors by considering these factors.
 				</p>
 			</section>
 			<a name="radarChart" style="position:relative; top:-80px; display:block; height:0; overflow:hidden;"></a>
 			<section>
 				<h2 class="subtitle">radarChart</h2>
-				<div id="radar-chart" class="radarChart"></div>
+				<div class="radar">
+					<div id="radar-chart" class="radarChart"></div>
+					<div id="radar-btns" class="radarBtns"></div>
+				</div>
 
 			</section>
 			<a name="network" style="position:relative; top:-80px; display:block; height:0; overflow:hidden;"></a>

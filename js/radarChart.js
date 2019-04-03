@@ -7,7 +7,7 @@
 /////////// Inspired by the code of alangrafu ///////////
 /////////////////////////////////////////////////////////
 
-function RadarChart(id, data, options) {
+function RadarChart(id, name, data, options) {
     var cfg = {
         w: 600, //Width of the circle
         h: 600, //Height of the circle
@@ -66,11 +66,15 @@ function RadarChart(id, data, options) {
     d3.select(id).select("svg").remove();
 
     //Initiate the radar chart SVG
+    //svg 的属性
     var svg = d3.select(id).append("svg")
-        .attr("width", cfg.w + cfg.margin.left + cfg.margin.right)
-        .attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
+        // .attr("width", cfg.w + cfg.margin.left + cfg.margin.right)  
+        // .attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom) 
+        .attr("width", "100%")
+        .attr("height", "100%")
         .attr("class", "radar" + id);
-    //Append a g element		
+
+    //Append a g element, translate
     var g = svg.append("g")
         .attr("transform", "translate(" + (cfg.w / 2 + cfg.margin.left) + "," + (cfg.h / 2 + cfg.margin.top) + ")");
 
@@ -148,9 +152,9 @@ function RadarChart(id, data, options) {
 
     //Append the labels at each axis
     axis.append("text")
-        .attr("class", "legend")
-        .style("font-size", "11px")
-        .attr("text-anchor", "middle")
+        .attr("class", "legend") // legend 为六维图 文字图标样式
+        // .style("font-size", "16px")
+        // .attr("text-anchor", "start")
         .attr("dy", "0.35em")
         .attr("x", function (d, i) {
             return rScale(maxValue * cfg.labelFactor) * Math.cos(angleSlice * i - Math.PI / 2);
@@ -181,11 +185,14 @@ function RadarChart(id, data, options) {
         radarLine.interpolate("cardinal-closed");
     }
 
-    //Create a wrapper for the blobs	
+    //Create a wrapper for the blobs
     var blobWrapper = g.selectAll(".radarWrapper")
         .data(data)
         .enter().append("g")
-        .attr("class", "radarWrapper");
+        .attr("class", "radarWrapper")
+        .attr("id", function (d, i) {
+            return name[i]
+        });
 
     //Append the backgrounds	
     blobWrapper
