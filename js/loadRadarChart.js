@@ -24,35 +24,9 @@ $(document).ready(function () {
         levels: 5, // 5层同心圆
         roundStrokes: true, //true: 曲线; false:直线
         color: color,
-        opacityArea: 0.35,
-        strokeWidth: 2,
-        dotRadius: 4,
-        total: 6, // 6维数据
         axisAll: ["work", "work2", "genre", "sumr", "mv", "hv"]
     };
-
-    let radius = Math.min(radarChartOptions.w / 2, radarChartOptions.h / 2);
-
-    let angleSlice = Math.PI * 2 / radarChartOptions.total;
-
-    //Scale for the radius
-    let rScale = d3.scale.linear()
-        .range([0, radius])
-        .domain([0, radarChartOptions.maxValue]);
-
-    //The radial line function
-    let radarLine = d3.svg.line.radial()
-        .interpolate("linear-closed")
-        .radius(function (d) {
-            return rScale(d.value);
-        })
-        .angle(function (d, i) {
-            return i * angleSlice;
-        });
-
-    if (radarChartOptions.roundStrokes) {
-        radarLine.interpolate("cardinal-closed");
-    }
+    
     /************ over */
 
     //D3 (目测异步)的加载csv
@@ -94,8 +68,11 @@ $(document).ready(function () {
             $("#radar-btns").append(checkbox);
         });
 
-        // 初始化雷达图, 这儿的入参 values 实际未使用，不想改radarChart.js校验了，故保留
-        initRadarChart(values)
+        // 初始化雷达图
+        // 加载6维图数据, 用的是d3 v3 版本, 使用其他版本注意解决冲突
+        RadarChart(".radarChart", displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
+        // RadarChart(".radarChart", [], [], radarChartOptions);
+
 
         //checkbox的input标签点击事件,不可选的checkbox不会触发此点击事件
         $("input[name='a']").click(function () {
@@ -112,122 +89,23 @@ $(document).ready(function () {
 
             // 点击触发选上
             if (this.checked) {
-                console.log("添加" + this.id)
+                // console.log("添加" + this.id)
                 let data = values.filter(x => x.name == this.id)[0]
-
                 displayValues.push(data);
-
-                // addNewLayer(this.id, data)
 
                 RadarChart(".radarChart", displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
 
             } else {
-                console.log("删除" + this.id)
+                // console.log("删除" + this.id)
                 let data = values.filter(x => x.name == this.id)[0]
-
-                // removeLayer(this.id)
 
                 // let index = displayValues.indexOf(data)
                 // displayValues.splice(index, 1)
 
                 displayValues = displayValues.filter(x => x.name != this.id)
-
                 RadarChart(".radarChart", displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
             }
-            console.log(colorIndex);
         });
     })
 
-    // 加载6维图数据, 用的是d3 v3 版本, 使用其他版本注意解决冲突
-    function initRadarChart(values) {
-        // 导演名
-        let name = values.map(x => x.name);
-
-        // 6维图数据
-        let data = values.map(x => x.value);
-
-        //Call function to draw the Radar chart
-        // RadarChart(".radarChart", name, data, radarChartOptions);
-        RadarChart(".radarChart", [], [], radarChartOptions);
-    }
-
-    // 添加一层
-    function addNewLayer(name, data) {
-        let svg = d3.select(".radarChart").select("svg");
-
-        let g = svg.select("#transform");
-
-        //Create a wrapper for the blobs
-        let blobWrapper = g.selectAll(".radarWrapper")
-            .data(data)
-            .enter().append("g")
-            .attr("class", "radarWrapper")
-            .attr("id", name);
-
-        //Append the backgrounds	
-        blobWrapper
-            .append("path")
-            .attr("class", "radarArea")
-            .attr("d", function (d, i) {
-                return radarLine(d);
-            })
-            .style("fill", color(colorIndex))
-            .style("fill-opacity", radarChartOptions.opacityArea)
-            .on('mouseover', function (d, i) {
-                //Dim all blobs
-                d3.selectAll(".radarArea")
-                    .transition().duration(200)
-                    .style("fill-opacity", 0.1);
-                //Bring back the hovered over blob
-                d3.select(this)
-                    .transition().duration(200)
-                    .style("fill-opacity", 0.7);
-            })
-            .on('mouseout', function () {
-                //Bring back all blobs
-                d3.selectAll(".radarArea")
-                    .transition().duration(200)
-                    .style("fill-opacity", radarChartOptions.opacityArea);
-            });
-
-        //Create the outlines	
-        blobWrapper.append("path")
-            .attr("class", "radarStroke")
-            .attr("d", function (d, i) {
-                return radarLine(d);
-            })
-            .style("stroke-width", radarChartOptions.strokeWidth + "px")
-            .style("stroke", color(colorIndex))
-            .style("fill", "none")
-            .style("filter", "url(#glow)");
-
-        //Append the circles
-        blobWrapper.selectAll(".radarCircle")
-            .data(function (d, i) {
-                return d;
-            })
-            .enter().append("circle")
-            .attr("class", "radarCircle")
-            .attr("r", radarChartOptions.dotRadius)
-            .attr("cx", function (d, i) {
-                return rScale(d.value) * Math.cos(angleSlice * i - Math.PI / 2);
-            })
-            .attr("cy", function (d, i) {
-                return rScale(d.value) * Math.sin(angleSlice * i - Math.PI / 2);
-            })
-            .style("fill", color(colorIndex))
-            .style("fill-opacity", 0.8);
-
-        colorIndex++;
-    }
-
-    // 删除一层
-    function removeLayer(name) {
-        let svg = d3.select(".radarChart").select("svg");
-        svg.select("#" + name).remove()
-        // let g = d3.select("transform");
-        // g.select(name).remove();
-
-        colorIndex--;
-    }
 })

@@ -28,7 +28,7 @@ function RadarChart(id, name, data, options) {
         strokeWidth: 2, //The width of the stroke around each blob
         roundStrokes: false, //If true the area and stroke will follow a round path (cardinal-closed)
         color: d3.scale.category10(), //Color function
-        axisAll: []
+        axisAll: [] //维度名
     };
 
     //Put all of the options into a variable called cfg

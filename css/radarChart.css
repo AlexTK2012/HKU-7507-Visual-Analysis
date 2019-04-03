@@ -10,7 +10,7 @@
     text-align: center;
     /* text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff; */
     cursor: default;
-    border: solid 1px #554141;
+    /* border: solid 1px #554141; */
     width: 600px !important;
     height: 600px !important;
     display: inline-flex;
@@ -29,7 +29,7 @@
 
 .radarBtns {
     font-size: 14px;
-    border: solid 1px #554141;
+    /* border: solid 1px #554141; */
     display: table-cell;
     overflow: auto;
 }
