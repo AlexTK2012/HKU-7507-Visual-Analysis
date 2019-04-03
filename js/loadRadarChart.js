@@ -12,9 +12,9 @@ $(document).ready(function () {
     let width = 400;
     let height = 400;
 
-    // 定义颜色和颜色计数器
-    let color = d3.scale.ordinal().range(["#EDC951", "#CC333F", "#00A0B0"]);
-    let colorIndex = 0;
+    // 定义颜色
+    // let color = d3.scale.ordinal().range(["#EDC951", "#CC333F", "#00A0B0"]);
+    let colors = ["#EDC951", "#CC333F", "#00A0B0"]
 
     let radarChartOptions = {
         w: width,
@@ -23,10 +23,9 @@ $(document).ready(function () {
         maxValue: 1, //最大值1, js代码里有校验, 以 Max(maxValue, data中的最大值) 作为实际MaxValue
         levels: 5, // 5层同心圆
         roundStrokes: true, //true: 曲线; false:直线
-        color: color,
         axisAll: ["work", "work2", "genre", "sumr", "mv", "hv"]
     };
-    
+
     /************ over */
 
     //D3 (目测异步)的加载csv
@@ -70,7 +69,7 @@ $(document).ready(function () {
 
         // 初始化雷达图
         // 加载6维图数据, 用的是d3 v3 版本, 使用其他版本注意解决冲突
-        RadarChart(".radarChart", displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
+        RadarChart(".radarChart", displayValues.map(x => x.color), displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
         // RadarChart(".radarChart", [], [], radarChartOptions);
 
 
@@ -91,19 +90,22 @@ $(document).ready(function () {
             if (this.checked) {
                 // console.log("添加" + this.id)
                 let data = values.filter(x => x.name == this.id)[0]
+                data.color = colors.shift()
+
                 displayValues.push(data);
 
-                RadarChart(".radarChart", displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
+                RadarChart(".radarChart", displayValues.map(x => x.color), displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
 
             } else {
                 // console.log("删除" + this.id)
                 let data = values.filter(x => x.name == this.id)[0]
-
+                colors.push(data.color)
+                
                 // let index = displayValues.indexOf(data)
                 // displayValues.splice(index, 1)
 
                 displayValues = displayValues.filter(x => x.name != this.id)
-                RadarChart(".radarChart", displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
+                RadarChart(".radarChart", displayValues.map(x => x.color), displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
             }
         });
     })

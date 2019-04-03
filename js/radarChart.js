@@ -1,5 +1,5 @@
 // 这是个d3实现的 radarChart.js 库，借鉴用的，
-// 为了需求效果，改了些逻辑，所以存在不少无用的代码。
+// 为了需求效果，改了些逻辑
 
 /////////////////////////////////////////////////////////
 /////////////// The Radar Chart Function ////////////////
@@ -8,7 +8,7 @@
 /////////// Inspired by the code of alangrafu ///////////
 /////////////////////////////////////////////////////////
 
-function RadarChart(id, name, data, options) {
+function RadarChart(id, color, name, data, options) {
     var cfg = {
         w: 600, //Width of the circle
         h: 600, //Height of the circle
@@ -27,7 +27,7 @@ function RadarChart(id, name, data, options) {
         opacityCircles: 0.1, //The opacity of the circles of each blob
         strokeWidth: 2, //The width of the stroke around each blob
         roundStrokes: false, //If true the area and stroke will follow a round path (cardinal-closed)
-        color: d3.scale.category10(), //Color function
+        // color: d3.scale.category10(), //Color function
         axisAll: [] //维度名
     };
 
@@ -205,7 +205,7 @@ function RadarChart(id, name, data, options) {
             return radarLine(d);
         })
         .style("fill", function (d, i) {
-            return cfg.color(i);
+            return color[i];
         })
         .style("fill-opacity", cfg.opacityArea)
         .on('mouseover', function (d, i) {
@@ -233,7 +233,7 @@ function RadarChart(id, name, data, options) {
         })
         .style("stroke-width", cfg.strokeWidth + "px")
         .style("stroke", function (d, i) {
-            return cfg.color(i);
+            return color[i];
         })
         .style("fill", "none")
         .style("filter", "url(#glow)");
@@ -253,7 +253,7 @@ function RadarChart(id, name, data, options) {
             return rScale(d.value) * Math.sin(angleSlice * i - Math.PI / 2);
         })
         .style("fill", function (d, i, j) {
-            return cfg.color(j);
+            return color[j];
         })
         .style("fill-opacity", 0.8);
 
