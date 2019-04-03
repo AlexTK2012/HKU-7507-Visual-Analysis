@@ -1,6 +1,6 @@
 // jquery
 $(document).ready(function () {
-
+    // 这边强烈个人适配了，建议阅读源码，Git 地址在ReadMe中
     /******** radarChart 基本参数设置 */
     // 设置图表显示大小
     let margin = {
@@ -15,7 +15,7 @@ $(document).ready(function () {
     // 定义颜色和颜色计数器
     let color = d3.scale.ordinal().range(["#EDC951", "#CC333F", "#00A0B0"]);
     let colorIndex = 0;
-    
+
     let radarChartOptions = {
         w: width,
         h: height,
@@ -26,8 +26,33 @@ $(document).ready(function () {
         color: color,
         opacityArea: 0.35,
         strokeWidth: 2,
-        dotRadius: 4
+        dotRadius: 4,
+        total: 6, // 6维数据
+        axisAll: ["work", "work2", "genre", "sumr", "mv", "hv"]
     };
+
+    let radius = Math.min(radarChartOptions.w / 2, radarChartOptions.h / 2);
+
+    let angleSlice = Math.PI * 2 / radarChartOptions.total;
+
+    //Scale for the radius
+    let rScale = d3.scale.linear()
+        .range([0, radius])
+        .domain([0, radarChartOptions.maxValue]);
+
+    //The radial line function
+    let radarLine = d3.svg.line.radial()
+        .interpolate("linear-closed")
+        .radius(function (d) {
+            return rScale(d.value);
+        })
+        .angle(function (d, i) {
+            return i * angleSlice;
+        });
+
+    if (radarChartOptions.roundStrokes) {
+        radarLine.interpolate("cardinal-closed");
+    }
     /************ over */
 
     //D3 (目测异步)的加载csv
@@ -37,6 +62,8 @@ $(document).ready(function () {
         let header = csvData.shift()
         // 解析并生成6纬图数据
         let values = []
+        // 展示的 values
+        let displayValues = []
 
         // slice 方法返回一个 Array 对象，其中包含了 arrayObj 的指定部分。
         // 参数：start，截取数组开始下标。end截止的下标，但不包括end元素
@@ -86,11 +113,26 @@ $(document).ready(function () {
             // 点击触发选上
             if (this.checked) {
                 console.log("添加" + this.id)
-                let data = values.filter(x => x.name == this.id)
-                addNewLayer(this.id, data)
+                let data = values.filter(x => x.name == this.id)[0]
+
+                displayValues.push(data);
+
+                // addNewLayer(this.id, data)
+
+                RadarChart(".radarChart", displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
+
             } else {
                 console.log("删除" + this.id)
-                removeLayer(this.id)
+                let data = values.filter(x => x.name == this.id)[0]
+
+                // removeLayer(this.id)
+
+                // let index = displayValues.indexOf(data)
+                // displayValues.splice(index, 1)
+
+                displayValues = displayValues.filter(x => x.name != this.id)
+
+                RadarChart(".radarChart", displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
             }
             console.log(colorIndex);
         });
@@ -99,18 +141,21 @@ $(document).ready(function () {
     // 加载6维图数据, 用的是d3 v3 版本, 使用其他版本注意解决冲突
     function initRadarChart(values) {
         // 导演名
-        // let name = values.map(x => x.name);
+        let name = values.map(x => x.name);
 
         // 6维图数据
         let data = values.map(x => x.value);
 
         //Call function to draw the Radar chart
-        RadarChart(".radarChart", data, radarChartOptions);
+        // RadarChart(".radarChart", name, data, radarChartOptions);
+        RadarChart(".radarChart", [], [], radarChartOptions);
     }
 
     // 添加一层
     function addNewLayer(name, data) {
-        let g = d3.select("transform");
+        let svg = d3.select(".radarChart").select("svg");
+
+        let g = svg.select("#transform");
 
         //Create a wrapper for the blobs
         let blobWrapper = g.selectAll(".radarWrapper")
@@ -178,8 +223,10 @@ $(document).ready(function () {
 
     // 删除一层
     function removeLayer(name) {
-        let g = d3.select("transform");
-        g.select(name).remove();
+        let svg = d3.select(".radarChart").select("svg");
+        svg.select("#" + name).remove()
+        // let g = d3.select("transform");
+        // g.select(name).remove();
 
         colorIndex--;
     }
