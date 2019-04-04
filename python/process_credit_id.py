@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Goal：用来测试数据是否存在异常情况
+
 判断是否存在相同的credit_id
 Answer:不存在
 """
