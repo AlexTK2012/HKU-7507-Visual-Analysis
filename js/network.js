@@ -36,7 +36,9 @@ function vis_create_network(json) {
         nodes: nodes,
         edges: edges
     };
-    var options = {};
+    var options = {
+        
+    };
 
     // initialize your network!
     var network = new vis.Network(container, data, options);
