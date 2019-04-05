@@ -42,7 +42,7 @@ function vis_create_network(json) {
             // color: '#ff0000',
             size: 3,
             shape: 'diamond',
-            // fixed: true //不可移动node
+            fixed: true //不可移动node
         },
         // edges: {
         //     // arrows: 'to, from',
