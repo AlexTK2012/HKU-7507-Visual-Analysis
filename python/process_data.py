@@ -43,9 +43,6 @@ def remove_duplicate(dict_list):
     new_dict_list = []
     for dict in dict_list:
         # 只根据 id 去重,不考虑一个人会有多个角色的场景。相同id 的数据,只保留先出现的。
-        # {'id': 76595, 'name': 'Byron Howard', 'job': 'Director', 'gender': 2}
-        # if dict['id'] == 76595:
-        #     print ("exception dict", dict)
         t_dict = {'id': dict['id']}
         tmp = tuple(t_dict.items())
         if tmp not in seen:
@@ -72,11 +69,9 @@ def compute_human_data(dataframe):
     for index, row in dataframe.iterrows():
         # 遍历 cast 数据:cast_id,character,credit_id,gender,id,name,order
         for cast in row.cast:
-            item = {'id': cast['id'], 'name': cast['name'],
-                    'job': 'actor', 'gender': cast['gender']}
+            item = {'id': cast['id'], 'label': cast['name'],
+                    'group': 'Actor', 'gender': cast['gender']}
             # James Cameron 既是actor也是director
-            # if (cast['id'] == 2710):
-            #     print ("Exception data :",cast['name'])
 
             data.append(item)
 
@@ -85,8 +80,8 @@ def compute_human_data(dataframe):
         for crew in row.crew:
             if crew['job'] == 'Director':
                 director_number += 1
-                item = {'id': crew['id'], 'name': crew['name'],
-                        'job': 'Director', 'gender': crew['gender']}
+                item = {'id': crew['id'], 'label': crew['name'],
+                        'group': 'Director', 'gender': crew['gender']}
                 data.append(item)
 
         # 一部电影不止一个 or 没有 Director : 确实有不少奇怪的数据
@@ -96,13 +91,13 @@ def compute_human_data(dataframe):
 
     print("导演数!=1 的电影数量 :", count)
     print("去重前, 演员+导演 总计人数: ", len(data))
-    print("去重前, 导演数量 :", len(list(x for x in data if x['job'] == 'Director')))
+    print("去重前, 导演数量 :", len(list(x for x in data if x['group'] == 'Director')))
     # 对 human_data 去重
     data = remove_duplicate(data)
     # 人数还是多，感觉还要进一步筛选
     print("去重后, 演员+导演 总计人数: ", len(data))
     # python lambda 表达式
-    print("去重后, 导演数量 :", len(list(x for x in data if x['job'] == 'Director')))
+    print("去重后, 导演数量 :", len(list(x for x in data if x['group'] == 'Director')))
     # 等同于
     # print("Director num:",len(list(filter(lambda x: x['job'] == 'Director', data))))
     return data
@@ -127,8 +122,8 @@ def compute_matrix(dataframe, nodes):
 
         # 遍历 cast 数据:cast_id,character,credit_id,gender,id,name,order
         for cast in row.cast:
-            item = {'id': cast['id'], 'name': cast['name'],
-                    'job': 'actor', 'gender': cast['gender']}
+            item = {'id': cast['id'], 'label': cast['name'],
+                    'group': 'Actor', 'gender': cast['gender']}
             try:
                 # 根据item 去human_data中查询index,可能出现某人在human_data 中存的是director,此处确实actor角色,导致查不到,此类数据忽略
                 tmp = nodes.index(item)
@@ -148,8 +143,8 @@ def compute_matrix(dataframe, nodes):
         for crew in row.crew:
             if crew['job'] == 'Director':
                 director_number += 1
-                item = {'id': crew['id'], 'name': crew['name'],
-                        'job': 'Director', 'gender': crew['gender']}
+                item = {'id': crew['id'], 'label': crew['name'],
+                        'group': 'Director', 'gender': crew['gender']}
                 try:
                     tmp = nodes.index(item)
                 except ValueError:
@@ -189,7 +184,7 @@ def compute_matrix(dataframe, nodes):
             if value > 1:
                 # 只存储共事次数大于1 的数据
                 Edges.append(
-                    {'from': nodes[i]['id'], 'to': nodes[j]['id'], 'value': int(value)})
+                    {'from': nodes[i]['id'], 'to': nodes[j]['id'], 'number': int(value)})
                 if nodes[i] not in newNodes:
                     newNodes.append(nodes[i])
                 if nodes[j] not in newNodes:
@@ -197,7 +192,7 @@ def compute_matrix(dataframe, nodes):
 
     print("只取共事次数大于1的数据, 共有 ",len(newNodes)," 人, 共有 ",len(Edges)," 边")
 
-    network_json = {'node': newNodes, 'edge': Edges}
+    network_json = {'nodes': newNodes, 'links': Edges}
     return network_json
 
 
@@ -219,7 +214,7 @@ def all_np(arr):
 # 入参: movie-actor-director数据集, 人的节点
 # Return: Json network data
 def generateJson(dataframe, human_data):
-    json = {'node': [], 'edge': []}
+    json = {'nodes': [], 'links': []}
 
     # 邻接表，存储所有边 i->j & j->i, 未相加
     Edges = []
@@ -231,8 +226,8 @@ def generateJson(dataframe, human_data):
 
         # 遍历 cast 数据:cast_id,character,credit_id,gender,id,name,order
         for cast in row.cast:
-            item = {'id': cast['id'], 'name': cast['name'],
-                    'job': 'actor', 'gender': cast['gender']}
+            item = {'id': cast['id'], 'label': cast['name'],
+                    'group': 'Actor', 'gender': cast['gender']}
             try:
                 # 根据item 去human_data中查询index,可能出现某人在human_data 中存的是director,此处确实actor角色,导致查不到,此类数据忽略
                 tmp = human_data.index(item)
@@ -252,8 +247,8 @@ def generateJson(dataframe, human_data):
         for crew in row.crew:
             if crew['job'] == 'Director':
                 director_number += 1
-                item = {'id': crew['id'], 'name': crew['name'],
-                        'job': 'Director', 'gender': crew['gender']}
+                item = {'id': crew['id'], 'label': crew['name'],
+                        'group': 'Director', 'gender': crew['gender']}
                 try:
                     tmp = human_data.index(item)
                 except ValueError:
@@ -265,10 +260,10 @@ def generateJson(dataframe, human_data):
         # 到此为止，Data是 这部电影 的人物下标集合
         # 添加所有出现过的角色到json nodes 中
         for i in data:
-            if (i not in json['node']):
-                json['node'].append(human_data[i])
+            if (i not in json['nodes']):
+                json['nodes'].append(human_data[i])
 
-        print(len(json['node']))
+        print(len(json['nodes']))
 
         # 遍历行数据中的所有人, 添加 i->j 边数据到 edges 中, 忽略 j->i （无向图）
         for i in data:
@@ -301,22 +296,22 @@ def generateJson(dataframe, human_data):
     for edge in Edges:
         # 判断 是否已经计算过 i->j + j->i value 之和
         convertList = list(
-            x for x in json['edge'] if x['from'] == edge['to'] and x['to'] == edge['from'])
+            x for x in json['links'] if x['from'] == edge['to'] and x['to'] == edge['from'])
         if len(convertList) == 0:
             # 初次计算
-            tmp = list(x for x in json['edge'] if x['from']
+            tmp = list(x for x in json['links'] if x['from']
                        == edge['to'] and x['to'] == edge['from'])[0]
             value = edge['value'] + tmp['value']
-            json['edge'].append(
+            json['links'].append(
                 {'from': edge['from'], 'to': edge['to'], 'value': value})
         # elif len(convertList) != 1:
             # 已经统计过，就跳过
 
     # 将 临界表 转换为 矩阵
     # edge_matrix 保存边矩阵, edge_matrix[x][y] 代表xy两人共事次数。
-    # edge_matrix = np.zeros((len(json['node']), len(json['node'])), dtype=np.int)
+    # edge_matrix = np.zeros((len(json['nodes']), len(json['nodes'])), dtype=np.int)
     # for edge in Edges:
-    # i = list(x['id'] for x in json['node']).index(edge['id'])
+    # i = list(x['id'] for x in json['nodes']).index(edge['id'])
     return json
 
 
@@ -335,9 +330,8 @@ human_data = compute_human_data(credits)
 
 # 保存点边数据
 network_json_data = compute_matrix(credits, human_data)
-write_data("./tmp/network_vis.json", network_json_data)
+write_data("./json/network_vis.json", network_json_data)
 
-# write_data("./tmp/top30_network.json", {'id':[{'name':'wang'},{'age':12}],'name':[{'name':'wang'},{'age':12}]})
 
 # jsonData = generateJson(credits, human_data)
 
