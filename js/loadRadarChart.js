@@ -23,7 +23,7 @@ $(document).ready(function () {
         maxValue: 1, //最大值1, js代码里有校验, 以 Max(maxValue, data中的最大值) 作为实际MaxValue
         levels: 5, // 5层同心圆
         roundStrokes: true, //true: 曲线; false:直线
-        axisAll: ["work", "work2", "genre", "sumr", "mv", "hv"]
+        axisAll: ["Works_quantity", "genre", "Sum_revenue", "Mean_vote", "Highest_vote"]
     };
 
     /************ over */
