@@ -27,7 +27,7 @@ html,body {
 .header .inner {
     height: inherit;
     width: 100%;
-    position: fixed
+    /* position: fixed */
 }
 
 .header .bg {

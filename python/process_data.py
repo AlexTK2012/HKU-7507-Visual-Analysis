@@ -68,11 +68,18 @@ def compute_human_data(dataframe):
     # 逐行检测:movie_id,title,cast,crew
     for index, row in dataframe.iterrows():
         # 遍历 cast 数据:cast_id,character,credit_id,gender,id,name,order
-        for cast in row.cast:
+        # for cast in row.cast:
+        #     item = {'id': cast['id'], 'name': cast['name'],
+        #             'job': 'Actor', 'gender': cast['gender']}
+        #     # James Cameron 既是actor也是director
+
+        #     data.append(item)
+
+        # 只取前5个演员
+        for cast in row.cast[0:4]:
             item = {'id': cast['id'], 'name': cast['name'],
                     'job': 'Actor', 'gender': cast['gender']}
             # James Cameron 既是actor也是director
-
             data.append(item)
 
         # 遍历 crew 数据:credit_id,department,gender,id,job,name
@@ -83,6 +90,8 @@ def compute_human_data(dataframe):
                 item = {'id': crew['id'], 'name': crew['name'],
                         'job': 'Director', 'gender': crew['gender']}
                 data.append(item)
+                if(director_number == 2):
+                    break
 
         # 一部电影不止一个 or 没有 Director : 确实有不少奇怪的数据
         if director_number != 1:
@@ -184,37 +193,38 @@ def compute_matrix(dataframe, nodes):
 
             # # 生存d3 数据
             # if value > 0 and nodes[i]['job'] == 'Director':
-            #     # 只存储共事次数大于1 的数据
-            #     Edges.append(
-            #         {'from': nodes[i]['id'], 'to': nodes[j]['id'], 'number': int(value)})
-            #     if nodes[i] not in newNodes:
-            #         newNodes.append(nodes[j])
-            #     if nodes[j] not in newNodes:
-            #         newNodes.append(nodes[j])
+            if value > 0:
+                # 只存储共事次数大于1 的数据
+                Edges.append(
+                    {'from': nodes[i]['id'], 'to': nodes[j]['id'], 'number': int(value)})
+                if nodes[i] not in newNodes:
+                    newNodes.append(nodes[j])
+                if nodes[j] not in newNodes:
+                    newNodes.append(nodes[j])
             
             # 生成echart 数据
             # 只获取以导演为中心的边数据
             # if value > 1 and nodes[i]['job'] == 'Director':
-            if value > 1:
-                # 只存储共事次数大于1 的数据
-                Edges.append(
-                    {'source': nodes[i]['name'], 'target': nodes[j]['name'], 'number': int(value)})
+            # if value > 1:
+            #     # 只存储共事次数大于1 的数据
+            #     Edges.append(
+            #         {'source': nodes[i]['name'], 'target': nodes[j]['name'], 'number': int(value)})
                 
-                if nodes[i]['job'] == 'Actor':
-                    category=0
-                else:
-                    category=1
-                newNodeI = {"name":nodes[i]['name'],"job":nodes[i]['job'],"category":category}
-                if nodes[j]['job'] == 'Actor':
-                    category=0
-                else:
-                    category=1
-                newNodeJ = {"name":nodes[j]['name'],"job":nodes[j]['job'],"category":category}
+            #     if nodes[i]['job'] == 'Actor':
+            #         category=0
+            #     else:
+            #         category=1
+            #     newNodeI = {"name":nodes[i]['name'],"job":nodes[i]['job'],"category":category}
+            #     if nodes[j]['job'] == 'Actor':
+            #         category=0
+            #     else:
+            #         category=1
+            #     newNodeJ = {"name":nodes[j]['name'],"job":nodes[j]['job'],"category":category}
 
-                if newNodeI not in newNodes:
-                    newNodes.append(newNodeI)
-                if newNodeJ not in newNodes:
-                    newNodes.append(newNodeJ)
+            #     if newNodeI not in newNodes:
+            #         newNodes.append(newNodeI)
+            #     if newNodeJ not in newNodes:
+            #         newNodes.append(newNodeJ)
 
     print("只取共事次数大于1的数据, 共有 ", len(newNodes), " 人, 导演有", len(
         list(x for x in newNodes if x['job'] == 'Director')), " 人, 共有 ", len(Edges), " 边")
@@ -251,7 +261,8 @@ human_data = compute_human_data(credits)
 
 # 保存点边数据
 network_json_data = compute_matrix(credits, human_data)
-write_data("./tmp/network_echart_top100123.json", network_json_data)
+# write_data("./tmp/network_echart_5_actor.json", network_json_data)
+write_data("./tmp/network_d3_5_actor.json", network_json_data)
 
 
 # jsonData = generateJson(credits, human_data)
