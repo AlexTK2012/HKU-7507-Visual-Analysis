@@ -1,5 +1,5 @@
 .radar {
-    display: flex;
+    display: inline-flex;
 }
 
 .radarChart {

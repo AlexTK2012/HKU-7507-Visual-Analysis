@@ -181,17 +181,42 @@ def compute_matrix(dataframe, nodes):
     for i in range(len(nodes)):
         for j in range(i+1, len(nodes)):
             value = edge_matrix[i][j]
-            if value > 0 and nodes[i]['job'] == 'Director':
-                # 只获取以导演为中心的边数据
+
+            # # 生存d3 数据
+            # if value > 0 and nodes[i]['job'] == 'Director':
+            #     # 只存储共事次数大于1 的数据
+            #     Edges.append(
+            #         {'from': nodes[i]['id'], 'to': nodes[j]['id'], 'number': int(value)})
+            #     if nodes[i] not in newNodes:
+            #         newNodes.append(nodes[j])
+            #     if nodes[j] not in newNodes:
+            #         newNodes.append(nodes[j])
+            
+            # 生成echart 数据
+            # 只获取以导演为中心的边数据
+            # if value > 1 and nodes[i]['job'] == 'Director':
+            if value > 1:
                 # 只存储共事次数大于1 的数据
                 Edges.append(
-                    {'from': nodes[i]['id'], 'to': nodes[j]['id'], 'number': int(value)})
-                if nodes[i] not in newNodes:
-                    newNodes.append(nodes[i])
-                if nodes[j] not in newNodes:
-                    newNodes.append(nodes[j])
+                    {'source': nodes[i]['name'], 'target': nodes[j]['name'], 'number': int(value)})
+                
+                if nodes[i]['job'] == 'Actor':
+                    category=0
+                else:
+                    category=1
+                newNodeI = {"name":nodes[i]['name'],"job":nodes[i]['job'],"category":category}
+                if nodes[j]['job'] == 'Actor':
+                    category=0
+                else:
+                    category=1
+                newNodeJ = {"name":nodes[j]['name'],"job":nodes[j]['job'],"category":category}
 
-    print("只取共事次数大于0的数据, 共有 ", len(newNodes), " 人, 导演有", len(
+                if newNodeI not in newNodes:
+                    newNodes.append(newNodeI)
+                if newNodeJ not in newNodes:
+                    newNodes.append(newNodeJ)
+
+    print("只取共事次数大于1的数据, 共有 ", len(newNodes), " 人, 导演有", len(
         list(x for x in newNodes if x['job'] == 'Director')), " 人, 共有 ", len(Edges), " 边")
 
     network_json = {'nodes': newNodes, 'links': Edges}
@@ -226,7 +251,7 @@ human_data = compute_human_data(credits)
 
 # 保存点边数据
 network_json_data = compute_matrix(credits, human_data)
-write_data("./json/network_vis_director_top100.json", network_json_data)
+write_data("./tmp/network_echart_top100123.json", network_json_data)
 
 
 # jsonData = generateJson(credits, human_data)

@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     // 加载 网络图数据
     $(document.getElementById("network-chart")).ready(function () {
-        load_json();
+        // load_json();
     })
 })
 
@@ -18,9 +18,6 @@ function load_json() {
     });
 }
 
-function d3_create_network() {
-
-}
 
 function vis_create_network(json) {
     var nodes = json.nodes;
@@ -139,5 +136,5 @@ function vis_create_network(json) {
     // initialize your network!
     var network = new vis.Network(container, data, options);
 
-    console.log(network.getSeed())
+    // console.log(network.getSeed())
 }
