@@ -37,7 +37,7 @@ html,body {
     left: 0;
     top: 0;
     background: no-repeat top -60px center;
-    background-image: url("../images/banner_0.jpg");
+    background-image: url("../images/yarn.jpg");
     background-size: cover;
     z-index: -1
 }
@@ -49,7 +49,7 @@ html,body {
 
 .header .title h1 {
     margin: 0 auto;
-    color: #fff;
+    color: #000;
     width: fit-content;
     border-bottom: 2px solid var(--theme-color)
 }
