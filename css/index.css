@@ -19,9 +19,9 @@ html,body {
     flex-flow: column nowrap;
     justify-content: space-between;
     align-items: center;
-    /*background-image: url("../images/white-waves.png");*/
+    background-image: url("../images/what-the-hex-dark.png");
     
-    background: #fff
+    /*background: #000*/
 }
 
 .header {
@@ -121,7 +121,7 @@ html,body {
 .nav .menu li a span {
     color: #fff;
     font-family: 'THRONEGOTHIC';
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .nav .menu li a:hover {
@@ -138,6 +138,7 @@ html,body {
 
 .content {
     width: 100%;
+    color: #fff;
 }
 
 .content .subtitle {
