@@ -1,6 +1,13 @@
 :root {
     --theme-color:#6cf}
 
+
+@font-face{
+    font-family: 'THRONEGOTHIC';
+    src : url('../font/THRONEGOTHIC_CLASSIC_.TTF');
+}
+    
+
 html,body {
     margin: 0;
     padding: 0;
@@ -12,6 +19,8 @@ html,body {
     flex-flow: column nowrap;
     justify-content: space-between;
     align-items: center;
+    /*background-image: url("../images/white-waves.png");*/
+    
     background: #fff
 }
 
@@ -86,7 +95,7 @@ html,body {
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-    background: #fff;
+    background: #000;
     box-shadow: 0 1px 1px 0 rgba(0,0,0,0.16);
 }
 
@@ -110,7 +119,9 @@ html,body {
 }
 
 .nav .menu li a span {
-    color: #000
+    color: #fff;
+    font-family: 'THRONEGOTHIC';
+    font-size: 25px;
 }
 
 .nav .menu li a:hover {
