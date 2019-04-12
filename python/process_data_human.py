@@ -67,12 +67,12 @@ def compute_main_human_data(dataframe):
     # 逐行检测:movie_id,title,cast,crew
     for index, row in dataframe.iterrows():
         # 只取前2个演员
-        for cast in row.cast[0:2]:
-            item = {'id': cast['id'], 'name': cast['name'],
-                    'job': 'Actor', 'gender': cast['gender']}
-            data.append(item)
-            if item['id'] == 1269:
-                print(item)
+        # for cast in row.cast[0:2]:
+        #     item = {'id': cast['id'], 'name': cast['name'],
+        #             'job': 'Actor', 'gender': cast['gender']}
+        #     data.append(item)
+        #     if item['id'] == 1269:
+        #         print(item)
 
         # 遍历 crew 数据:credit_id,department,gender,id,job,name
         director_number = 0
@@ -81,10 +81,11 @@ def compute_main_human_data(dataframe):
                 item = {'id': crew['id'], 'name': crew['name'],
                         'job': 'Director', 'gender': crew['gender']}
                 data.append(item)
-                if item['id'] == 1269:
-                    print(item)
+                # if item['id'] == 1269:
+                #     print(item)
                 director_number += 1
                 if(director_number == 2):
+                    print("主导演数量大于1的电影 : ", row.crew.index(crew))
                     break
 
         # 一部电影不止一个 or 没有 Director : 确实有不少奇怪的数据
@@ -94,14 +95,14 @@ def compute_main_human_data(dataframe):
             count += 1
 
     print("导演数!=1 的电影数量 :", count)
-    print("去重前, 演员+导演 总计人数: ", len(data))
-    print("去重前, 导演数量 :", len(list(x for x in data if x['job'] == 'Director')))
-    # 对 human_data 去重
-    data = remove_duplicate(data)
-    # 人数还是多，感觉还要进一步筛选
-    print("去重后, 演员+导演 总计人数: ", len(data))
-    # python lambda 表达式
-    print("去重后, 导演数量 :", len(list(x for x in data if x['job'] == 'Director')))
+    # print("去重前, 演员+导演 总计人数: ", len(data))
+    # print("去重前, 导演数量 :", len(list(x for x in data if x['job'] == 'Director')))
+    # # 对 human_data 去重
+    # data = remove_duplicate(data)
+    # # 人数还是多，感觉还要进一步筛选
+    # print("去重后, 演员+导演 总计人数: ", len(data))
+    # # python lambda 表达式
+    # print("去重后, 导演数量 :", len(list(x for x in data if x['job'] == 'Director')))
     # 等同于
     # print("Director num:",len(list(filter(lambda x: x['job'] == 'Director', data))))
     return data
@@ -121,6 +122,18 @@ def compute_matrix(dataframe, nodes):
 
     # 逐行检测:movie_id,title,cast,crew
     for index, row in dataframe.iterrows():
+
+        director_number = 0
+        for crew in row.crew:
+            if row.crew.index(crew) == 9:
+                print(" 9999 " + crew)
+            if crew['job'] == 'Director':
+                item = {'id': crew['id'], 'name': crew['name'],
+                        'job': 'Director', 'gender': crew['gender']}
+                director_number += 1
+                if(director_number == 2):
+                    break
+
         # data 保存这部电影中主演的演员+导演 对应human_data 的序号索引(下标)
         data = []
 
@@ -144,16 +157,18 @@ def compute_matrix(dataframe, nodes):
                 item = {'id': crew['id'], 'name': crew['name'],
                         'job': 'Director', 'gender': crew['gender']}
                 try:
+                    # 只取电影的前两个导演
                     tmp = nodes.index(item)
                     if (tmp not in data):
                         data.append(tmp)
                 except ValueError:
-                    # 只有 Kevin Costner 一个人在top100电影里即是主演也是主导演，此处忽略
+                    # 此处忽略即是主导演又是主演员
                     tmp = -1
                 director_number += 1
                 if(director_number == 2):
                     break
-
+        if len(data) > 3:
+            print("data>3")
         # 遍历行数据中的所有人
         for x in data:
             # 构建 node 的所有边
@@ -178,11 +193,18 @@ def compute_matrix(dataframe, nodes):
 
     # newNodes = []
     Edges = []
-    # 遍历 edge_matrix 矩阵的一半(这是个对称矩阵)，存储edge 信息
+    # 遍历 edge_matrix 邻接矩阵的 一半 (为了不重复存储边信息)，存储edge 信息
     for i in range(len(nodes)):
+        # echart 需要nodes去除 id 字段
+        nodes[i].pop("id", None)
+        # node的大小为 此人共事别人的次数
+        if node_matrix[i] == 0:
+            print("存在无共事的人，确实不可能")
+        elif node_matrix[i] > 3:
+            print("存在共事人数大于3的情况，应该很少啊")
+        nodes[i]["symbolSize"] = int(10 + node_matrix[i]*2)
         for j in range(i+1, len(nodes)):
             value = edge_matrix[i][j]
-
             # # 生存d3 数据
             # if value > 0 and nodes[i]['job'] == 'Actor':
             # if value > 0:
@@ -212,8 +234,6 @@ def compute_matrix(dataframe, nodes):
                     nodes[j]["category"] = 0
                 else:
                     nodes[j]["category"] = 1
-            # echart 需要nodes去除 id 字段
-            nodes[i].pop("id", None)
 
     print("只取共事次数大于0的数据, 共有 ", len(nodes), " 人, 导演有", len(
         list(x for x in nodes if x['job'] == 'Director')), " 人, 共有 ", len(Edges), " 边")
