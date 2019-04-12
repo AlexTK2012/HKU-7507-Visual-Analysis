@@ -3,8 +3,9 @@ $(document.getElementById("network-echart")).ready(function () {
 
     // $.get('../tmp/network_echart_top100.json', function (networkJson) {
     // $.get('../tmp/network_echart_top30.json', function (networkJson) {
-    $.get('../tmp/network_echart_5_actor.json', function (networkJson) {
+    // $.get('../tmp/network_echart_5_actor.json', function (networkJson) {
     // $.get('../tmp/network_echart_director_top30.json', function (networkJson) {
+        $.get('../json/network_echart_main_actor.json', function (networkJson) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('network-echart'));
 

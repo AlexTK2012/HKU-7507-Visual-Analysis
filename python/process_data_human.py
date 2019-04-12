@@ -7,9 +7,9 @@ budget,genres,homepage,id,keywords,original_language,original_title,overview,pop
 credits表字段：
 movie_id,title,cast,crew
 
-Goal:生成导演和演员的关系, 生成json 文件,格式参见network_vis.json
+Goal: 只取top100 电影里每部的前两个演员+前两个导演，计算
 
-Result：数据太大，展示效果不好，体现不了价值
+Result：
 """
 
 import json
@@ -53,51 +53,44 @@ def remove_duplicate(dict_list):
     return new_dict_list
 
 
-# 计算 human 数据 {id:1,name:Tom,job:actor,gender:1}
-# 全部数据:
-# 导演数!=1 的电影数量：338
-# 去重后, 演员+导演 总计 56603 人, 导演 2151人
-#
+# 计算主演 + 主导演数据
 # top100数据:
-# 去重后, 演员+导演 总计 4485人, 导演 47人
-#
-# top30数据:
-# 去重后, 演员+导演 总计 1673人, 导演 17人
+# 导演数!=1 的电影数量 : 13
+# 去重前, 演员+导演 总计人数:  313
+# 去重前, 导演数量 : 113
+# 去重后, 演员+导演 总计人数:  209
+# 去重后, 导演数量 : 69
 # Return: 所有参与者（演员+导演）数据, 格式:{id,name,job,gender}
-def compute_human_data(dataframe):
+def compute_main_human_data(dataframe):
     data = []
     count = 0
     # 逐行检测:movie_id,title,cast,crew
     for index, row in dataframe.iterrows():
-        # 遍历 cast 数据:cast_id,character,credit_id,gender,id,name,order
-        # for cast in row.cast:
-        #     item = {'id': cast['id'], 'name': cast['name'],
-        #             'job': 'Actor', 'gender': cast['gender']}
-        #     # James Cameron 既是actor也是director
-
-        #     data.append(item)
-
-        # 只取前5个演员
-        for cast in row.cast[0:4]:
+        # 只取前2个演员
+        for cast in row.cast[0:2]:
             item = {'id': cast['id'], 'name': cast['name'],
                     'job': 'Actor', 'gender': cast['gender']}
-            # James Cameron 既是actor也是director
             data.append(item)
+            if item['id'] == 1269:
+                print(item)
 
         # 遍历 crew 数据:credit_id,department,gender,id,job,name
         director_number = 0
         for crew in row.crew:
             if crew['job'] == 'Director':
-                director_number += 1
                 item = {'id': crew['id'], 'name': crew['name'],
                         'job': 'Director', 'gender': crew['gender']}
                 data.append(item)
+                if item['id'] == 1269:
+                    print(item)
+                director_number += 1
                 if(director_number == 2):
                     break
 
         # 一部电影不止一个 or 没有 Director : 确实有不少奇怪的数据
         if director_number != 1:
-            # print ("movie id:",row.movie_id," ,title:",row.title," ,director_num:",director_number)
+            # print("movie id:", row.movie_id, " ,title:",
+            #       row.title_y, " ,director_num:", director_number)
             count += 1
 
     print("导演数!=1 的电影数量 :", count)
@@ -115,54 +108,51 @@ def compute_human_data(dataframe):
 
 
 # dataframe: top100电影list（含演员+导演字段）
-# nodes: 演员+导演的list，格式:{id,name,job,gender}
+# nodes: 主要演员+导演的list，格式:{id,name,job,gender}
 #
 # 构建N*N 的二维数组 node_matrix,N=len(human_data),
 # 对 x!=y, node_matrix[x,y] = x和y 两人共事过的电影数
-# 计算矩阵，暂时不用了-------没想到还是靠这个救命
+# Goal:计算矩阵
 def compute_matrix(dataframe, nodes):
     # edge_matrix 保存边矩阵, edge_matrix[x][y] 代表xy两人共事次数。
     edge_matrix = np.zeros((len(nodes), len(nodes)), dtype=np.int)
-    # node_matrix 保存点矩阵, node_matrix[x] 代表x人与node_matrix[x] 人共事过。
+    # node_matrix 保存点矩阵, node_matrix[x] 代表 nodes中的 第X人 与 node_matrix[x] 个人共事过。
     node_matrix = np.zeros(len(nodes), dtype=np.int)
 
     # 逐行检测:movie_id,title,cast,crew
     for index, row in dataframe.iterrows():
-        # data 保存这部电影中出现过的演员+导演 对应human_data 的序号索引(下标)
+        # data 保存这部电影中主演的演员+导演 对应human_data 的序号索引(下标)
         data = []
 
         # 遍历 cast 数据:cast_id,character,credit_id,gender,id,name,order
-        for cast in row.cast:
+        for cast in row.cast[0:2]:
             item = {'id': cast['id'], 'name': cast['name'],
                     'job': 'Actor', 'gender': cast['gender']}
             try:
-                # 根据item 去human_data中查询index,可能出现某人在human_data 中存的是director,此处确实actor角色,导致查不到,此类数据忽略
                 tmp = nodes.index(item)
+                if (tmp not in data):
+                    data.append(tmp)
             except ValueError:
+                # tmp not in nodes list,
+                # 根据item 去human_data中查询index,可能出现某人在human_data 中存的是director,此处确实actor角色,导致查不到,此类数据忽略
                 tmp = -1
-
-            # (tmp not in data):
-            # 同一部电影里,有演员数据因为character不同而出现多次(大部分是配音角色不同)
-            # 数据量很小,此处对重复数据做忽略处理.
-            # (tmp != -1):
-            # 忽略未在human_node中找到的数据(大多是因为id 相同，compute_human_data中被去重掉了)
-            if (tmp not in data) and (tmp != -1):
-                data.append(tmp)
 
         # 遍历 crew 数据:credit_id,department,gender,id,job,name
         director_number = 0
         for crew in row.crew:
             if crew['job'] == 'Director':
-                director_number += 1
                 item = {'id': crew['id'], 'name': crew['name'],
                         'job': 'Director', 'gender': crew['gender']}
                 try:
                     tmp = nodes.index(item)
+                    if (tmp not in data):
+                        data.append(tmp)
                 except ValueError:
+                    # 只有 Kevin Costner 一个人在top100电影里即是主演也是主导演，此处忽略
                     tmp = -1
-
-                if (tmp not in data) and (tmp != -1):
-                    data.append(tmp)
+                director_number += 1
+                if(director_number == 2):
+                    break
 
         # 遍历行数据中的所有人
         for x in data:
@@ -186,7 +176,7 @@ def compute_matrix(dataframe, nodes):
     for tmp in dict_num:
         print("任意两人共事 ", tmp, " 次的情况发生次数 ", dict_num[tmp])
 
-    newNodes = []
+    # newNodes = []
     Edges = []
     # 遍历 edge_matrix 矩阵的一半(这是个对称矩阵)，存储edge 信息
     for i in range(len(nodes)):
@@ -194,44 +184,54 @@ def compute_matrix(dataframe, nodes):
             value = edge_matrix[i][j]
 
             # # 生存d3 数据
-            # if value > 0 and nodes[i]['job'] == 'Director':
-            if value > 0:
-                # 只存储共事次数大于1 的数据
-                Edges.append(
-                    {'from': nodes[i]['id'], 'to': nodes[j]['id'], 'number': int(value)})
-                if nodes[i] not in newNodes:
-                    newNodes.append(nodes[j])
-                if nodes[j] not in newNodes:
-                    newNodes.append(nodes[j])
-            
+            # if value > 0 and nodes[i]['job'] == 'Actor':
+            # if value > 0:
+            #     # 只存储共事次数大于0 的b边
+            #     Edges.append(
+            #         {'source': nodes[i]['id'], 'target': nodes[j]['id'], 'value': int(value)})
+            # # d3 节点里需要group 字段
+            # if nodes[i]['job'] == 'Actor':
+            #     nodes[i]["group"] = 0
+            # else:
+            #     nodes[i]["group"] = 1
+
             # 生成echart 数据
             # 只获取以导演为中心的边数据
             # if value > 1 and nodes[i]['job'] == 'Director':
-            # if value > 1:
-            #     # 只存储共事次数大于1 的数据
-            #     Edges.append(
-            #         {'source': nodes[i]['name'], 'target': nodes[j]['name'], 'number': int(value)})
-                
-            #     if nodes[i]['job'] == 'Actor':
-            #         category=0
-            #     else:
-            #         category=1
-            #     newNodeI = {"name":nodes[i]['name'],"job":nodes[i]['job'],"category":category}
-            #     if nodes[j]['job'] == 'Actor':
-            #         category=0
-            #     else:
-            #         category=1
-            #     newNodeJ = {"name":nodes[j]['name'],"job":nodes[j]['job'],"category":category}
+            if value > 0:
+                # 只存储共事次数大于1 的数据
+                Edges.append(
+                    {'source': nodes[i]['name'], 'target': nodes[j]['name'], 'number': int(value)})
 
-            #     if newNodeI not in newNodes:
-            #         newNodes.append(newNodeI)
-            #     if newNodeJ not in newNodes:
-            #         newNodes.append(newNodeJ)
+                if nodes[i]['job'] == 'Actor':
+                    nodes[i]["category"] = 0
+                else:
+                    nodes[i]["category"] = 1
 
-    print("只取共事次数大于1的数据, 共有 ", len(newNodes), " 人, 导演有", len(
-        list(x for x in newNodes if x['job'] == 'Director')), " 人, 共有 ", len(Edges), " 边")
+                if nodes[j]['job'] == 'Actor':
+                    nodes[j]["category"] = 0
+                else:
+                    nodes[j]["category"] = 1
+            # echart 需要nodes去除 id 字段
+            nodes[i].pop("id", None)
 
-    network_json = {'nodes': newNodes, 'links': Edges}
+    print("只取共事次数大于0的数据, 共有 ", len(nodes), " 人, 导演有", len(
+        list(x for x in nodes if x['job'] == 'Director')), " 人, 共有 ", len(Edges), " 边")
+
+    # echart 还需要其他两个字段
+    categories = [{
+        "name": "Actor",
+        "keyword": {}
+    }, {
+        "name": "Director",
+        "keyword": {}
+    }
+    ]
+    network_json = {'nodes': nodes, 'links': Edges,
+                    "type": "force", "categories": categories}
+
+    # network_json = {'nodes': nodes, 'links': Edges}
+
     return network_json
 
 
@@ -252,23 +252,14 @@ def all_np(arr):
 # credits = load_tmdb_credits("./data/tmdb_5000_credits.csv")
 # top100 电影
 credits = load_tmdb_credits("./data/tmdb_top100_data.csv")
-# credits = load_tmdb_credits("./tmp/tmdb_top50_data.csv")
-# credits = load_tmdb_credits("./tmp/tmdb_top30_data.csv")
 
 
 # 参与者（演员+导演）数据
-human_data = compute_human_data(credits)
+main_human_data = compute_main_human_data(credits)
 # write_data("./data/human_data.json", human_data)
 
 
 # 保存点边数据
-network_json_data = compute_matrix(credits, human_data)
-# write_data("./tmp/network_echart_5_actor.json", network_json_data)
-write_data("./tmp/network_d3_5_actor.json", network_json_data)
-
-
-# jsonData = generateJson(credits, human_data)
-
-# np.savetxt("./json/top100_edge.csv", result_edge, fmt="%d", delimiter=",")
-# np.savetxt("./json/top100_node.csv", result_node, fmt="%d", delimiter=",")
-# write_data("./data/adjacency_data.json", adjacency_data)
+network_json_data = compute_matrix(credits, main_human_data)
+write_data("./tmp/network_echart_main_actor.json", network_json_data)
+# write_data("./tmp/network_d3_main_actor.json", network_json_data)

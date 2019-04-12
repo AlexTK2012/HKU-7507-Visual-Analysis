@@ -23,9 +23,9 @@ $(document.getElementById("network-d3")).ready(function () {
         .force("center", d3.forceCenter(width / 2, height / 2));
 
     // d3.json("../json/network.json", function (error, graph) {
-    d3.json("../tmp/network_d3_top30.json", function (error, graph) {
+    // d3.json("../tmp/network_d3_top30.json", function (error, graph) {
     // d3.json("../tmp/network_d3_director_top100.json", function (error, graph) {
-    // d3.json("../tmp/network_d3_5_actor.json", function (error, graph) {
+    d3.json("../json/network_d3_main_actor.json", function (error, graph) {
         if (error) throw error;
 
         let link = svg.append("g")
