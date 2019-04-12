@@ -67,12 +67,12 @@ def compute_main_human_data(dataframe):
     # 逐行检测:movie_id,title,cast,crew
     for index, row in dataframe.iterrows():
         # 只取前2个演员
-        # for cast in row.cast[0:2]:
-        #     item = {'id': cast['id'], 'name': cast['name'],
-        #             'job': 'Actor', 'gender': cast['gender']}
-        #     data.append(item)
-        #     if item['id'] == 1269:
-        #         print(item)
+        for cast in row.cast[0:2]:
+            item = {'id': cast['id'], 'name': cast['name'],
+                    'job': 'Actor', 'gender': cast['gender']}
+            data.append(item)
+            # if item['id'] == 1269:
+            #     print(item)
 
         # 遍历 crew 数据:credit_id,department,gender,id,job,name
         director_number = 0
@@ -85,7 +85,7 @@ def compute_main_human_data(dataframe):
                 #     print(item)
                 director_number += 1
                 if(director_number == 2):
-                    print("主导演数量大于1的电影 : ", row.crew.index(crew))
+                    # print("主导演数量大于1的电影 : ", index)
                     break
 
         # 一部电影不止一个 or 没有 Director : 确实有不少奇怪的数据
@@ -94,15 +94,15 @@ def compute_main_human_data(dataframe):
             #       row.title_y, " ,director_num:", director_number)
             count += 1
 
-    print("导演数!=1 的电影数量 :", count)
-    # print("去重前, 演员+导演 总计人数: ", len(data))
-    # print("去重前, 导演数量 :", len(list(x for x in data if x['job'] == 'Director')))
-    # # 对 human_data 去重
-    # data = remove_duplicate(data)
-    # # 人数还是多，感觉还要进一步筛选
-    # print("去重后, 演员+导演 总计人数: ", len(data))
-    # # python lambda 表达式
-    # print("去重后, 导演数量 :", len(list(x for x in data if x['job'] == 'Director')))
+    print("主要导演数!=1 的电影数量 :", count)
+    print("去重前, 主要演员+导演 总计人数: ", len(data))
+    print("去重前, 主要导演数量 :", len(list(x for x in data if x['job'] == 'Director')))
+    # 对 human_data 去重
+    data = remove_duplicate(data)
+    # 人数还是多，感觉还要进一步筛选
+    print("去重后, 主要演员+导演 总计人数: ", len(data))
+    # python lambda 表达式
+    print("去重后, 主要导演数量 :", len(list(x for x in data if x['job'] == 'Director')))
     # 等同于
     # print("Director num:",len(list(filter(lambda x: x['job'] == 'Director', data))))
     return data
@@ -115,24 +115,16 @@ def compute_main_human_data(dataframe):
 # 对 x!=y, node_matrix[x,y] = x和y 两人共事过的电影数
 # Goal:计算矩阵
 def compute_matrix(dataframe, nodes):
-    # edge_matrix 保存边矩阵, edge_matrix[x][y] 代表xy两人共事次数。
+    # edge_matrix 保存边矩阵, edge_matrix[x][y] 代表xy两人共事次数。就是network 里边的宽度，越宽代表这两人合作次数越多。
     edge_matrix = np.zeros((len(nodes), len(nodes)), dtype=np.int)
-    # node_matrix 保存点矩阵, node_matrix[x] 代表 nodes中的 第X人 与 node_matrix[x] 个人共事过。
+    # node_matrix 保存点矩阵, node_matrix[x] 代表第X人共事过 node_matrix[x] 个人。就是 network里点的大小，越大代表这人合作过的人越多。
     node_matrix = np.zeros(len(nodes), dtype=np.int)
 
     # 逐行检测:movie_id,title,cast,crew
     for index, row in dataframe.iterrows():
-
-        director_number = 0
-        for crew in row.crew:
-            if row.crew.index(crew) == 9:
-                print(" 9999 " + crew)
-            if crew['job'] == 'Director':
-                item = {'id': crew['id'], 'name': crew['name'],
-                        'job': 'Director', 'gender': crew['gender']}
-                director_number += 1
-                if(director_number == 2):
-                    break
+        # # 这几个是有2个主演 + 2个主导演的电影
+        # if index in [8, 15, 24, 35, 40, 45, 52, 61, 66, 76, 82, 88, 99]:
+        #     print(" 再看电影 ", index)
 
         # data 保存这部电影中主演的演员+导演 对应human_data 的序号索引(下标)
         data = []
@@ -167,8 +159,7 @@ def compute_matrix(dataframe, nodes):
                 director_number += 1
                 if(director_number == 2):
                     break
-        if len(data) > 3:
-            print("data>3")
+
         # 遍历行数据中的所有人
         for x in data:
             # 构建 node 的所有边
@@ -176,10 +167,17 @@ def compute_matrix(dataframe, nodes):
                 if x != y:
                     # 对于 x!=y, 说明x 与 y 共事次数+1
                     edge_matrix[x][y] += 1
-                    node_matrix[x] += 1
+                    # node_matrix[x] += 1   # 这样是错的，可能[2,5,6],[2,5,6]，实际2只与5,6合作过,但这儿就计算错了
 
+    # 计算 每个人共事过多少人
+    for i in range(len(nodes)):
+        for tmp in edge_matrix[i]:
+            if tmp > 0:
+                # 遍历此人的边（和别人的共事次数）
+                node_matrix[i] += 1
     # node_matrix = edge_matrix 列元素之和，或edge_matrix 行元素之和
 
+    # edge_matrix 是共事次数的邻接矩阵，就是network 里边的宽度
     print(all_np(edge_matrix))
 
     # 将对称矩阵的一半数据去掉
@@ -200,12 +198,11 @@ def compute_matrix(dataframe, nodes):
         # node的大小为 此人共事别人的次数
         if node_matrix[i] == 0:
             print("存在无共事的人，确实不可能")
-        elif node_matrix[i] > 3:
-            print("存在共事人数大于3的情况，应该很少啊")
-        nodes[i]["symbolSize"] = int(10 + node_matrix[i]*2)
+        # 设置点的大小，越大代表此人共事过的人越多
+        nodes[i]["symbolSize"] = int(4 + node_matrix[i]*2)
         for j in range(i+1, len(nodes)):
             value = edge_matrix[i][j]
-            # # 生存d3 数据
+            # # 生成 d3 数据
             # if value > 0 and nodes[i]['job'] == 'Actor':
             # if value > 0:
             #     # 只存储共事次数大于0 的b边
@@ -220,10 +217,12 @@ def compute_matrix(dataframe, nodes):
             # 生成echart 数据
             # 只获取以导演为中心的边数据
             # if value > 1 and nodes[i]['job'] == 'Director':
+            # 只存储共事次数大于1 的数据, 
             if value > 0:
-                # 只存储共事次数大于1 的数据
+                # 设置边的宽度，边越宽代表越宽代表两人合作次数越多
                 Edges.append(
-                    {'source': nodes[i]['name'], 'target': nodes[j]['name'], 'number': int(value)})
+                    {'source': nodes[i]['name'], 'target': nodes[j]['name'], 
+                        'lineStyle': {'width':int(value)*2}})
 
                 if nodes[i]['job'] == 'Actor':
                     nodes[i]["category"] = 0

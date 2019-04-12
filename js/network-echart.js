@@ -16,8 +16,8 @@ $(document.getElementById("network-echart")).ready(function () {
             animation: true,
             tooltip: { //提示框浮层,可完全自定义
                 formatter: function (obj) {
-                    // 计算此人共事人数
-                    let value = (obj.data.symbolSize - 10) / 2
+                    // 计算此人共事人数:此处计算规则要和python 里一致
+                    let value = (obj.data.symbolSize - 4) / 2
                     return '<div style="font-size: 18px;margin: 7px">' +
                         obj.data.job + ' ' + obj.name + ' has worked with ' + value + ' people.</div>';
                 }
@@ -63,7 +63,7 @@ $(document.getElementById("network-echart")).ready(function () {
                 },
                 lineStyle: {
                     normal: {
-                        width: 1, // 线宽
+                        // width: 1, // 线宽，越宽代表两人合作次数越多
                         curveness: 0, //线曲线度
                         opacity: 1 //透明度
                     }
