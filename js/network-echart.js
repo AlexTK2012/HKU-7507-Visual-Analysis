@@ -10,14 +10,14 @@ $(document.getElementById("network-echart")).ready(function () {
         var myChart = echarts.init(document.getElementById('network-echart'));
 
         option = {
-            // legend: {
-            //     data: ['Actor','Director']
-            // },
-            animation: false,
+            legend: {
+                data: ['Actor','Director']
+            },
+            animation: true,
             series: [{
                 type: 'graph',
                 layout: 'force',
-                animation: false,
+                animation: true,
                 roam: true,
                 label: {
                     normal: {
@@ -25,12 +25,12 @@ $(document.getElementById("network-echart")).ready(function () {
                         formatter: '{b}'
                     }
                 },
-                draggable: false,   //节点是否可拖拽，只在使用力引导布局的时候有用。
+                draggable: true,   //节点是否可拖拽，只在使用力引导布局的时候有用。
                 data: networkJson.nodes,
                 categories: networkJson.categories,
                 force: {
                     // initLayout: 'circular'
-                    edgeLength: 5,  //边的两个节点之间的距离，这个距离也会受 repulsion。
+                    edgeLength: 29,  //边的两个节点之间的距离，这个距离也会受 repulsion。
                     repulsion: 20,  //节点之间的斥力因子。
                     gravity: 0.2    //节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
                 },
