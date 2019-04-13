@@ -1,6 +1,6 @@
-// jquery
-// 使用radarChart.js 绘画雷达图
-$(document).ready(function () {
+// d3.js 使用radarChart.js 绘画雷达图
+$(document.getElementById("radar-chart")).ready(function () {
+    console.log("radar-chart contruct")
     // 这边强烈个人适配了，建议阅读源码，Git 地址在ReadMe中
     /******** radarChart 基本参数设置 */
     // 设置图表显示大小
@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     // 定义颜色
     // let color = d3.scale.ordinal().range(["#EDC951", "#CC333F", "#00A0B0"]);
-    let colors = ["#B71C1C", "#AD1457", "#8E24AA","#F4D03F","#3F51B5","#F1948A","#0097A7","#388E3C","#FFEE58","#EEEEEE"]
+    let colors = ["#B71C1C", "#AD1457", "#8E24AA", "#F4D03F", "#3F51B5", "#F1948A", "#0097A7", "#388E3C", "#FFEE58", "#EEEEEE"]
 
     let radarChartOptions = {
         w: width,
@@ -73,18 +73,17 @@ $(document).ready(function () {
         RadarChart(".radarChart", displayValues.map(x => x.color), displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
         // RadarChart(".radarChart", [], [], radarChartOptions);
 
-
         //checkbox的input标签点击事件,不可选的checkbox不会触发此点击事件
         $("input[name='a']").click(function () {
             //设置name为'a' 的input标签的属性为true,表示不可选
-            $("input[name='a']").attr('disabled', true);
+            $("input[name='a']").prop('disabled', true);
 
             if ($("input[name='a']:checked").length >= 10) {
-                //选中个数大于3, 只有已被选中的可以点击
-                $("input[name='a']:checked").attr('disabled', false);
+                //选中个数大于10, 只有已被选中的可以点击
+                $("input[name='a']:checked").prop('disabled', false);
             } else {
                 //所有checkbox都点击
-                $("input[name='a']").attr('disabled', false);
+                $("input[name='a']").prop('disabled', false);
             }
 
             // 点击触发选上
@@ -92,22 +91,37 @@ $(document).ready(function () {
                 // console.log("添加" + this.id)
                 let data = values.filter(x => x.name == this.id)[0]
                 data.color = colors.shift()
-
                 displayValues.push(data);
-
-                RadarChart(".radarChart", displayValues.map(x => x.color), displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
-
             } else {
                 // console.log("删除" + this.id)
                 let data = values.filter(x => x.name == this.id)[0]
                 colors.push(data.color)
-                
+
                 // let index = displayValues.indexOf(data)
                 // displayValues.splice(index, 1)
-
                 displayValues = displayValues.filter(x => x.name != this.id)
-                RadarChart(".radarChart", displayValues.map(x => x.color), displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
             }
+            RadarChart(".radarChart", displayValues.map(x => x.color), displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
+        });
+
+        // 全选按钮
+        $("input[name='all']").click(function () {
+            if (this.checked) {
+                //jquery 不包括:unchecked 选择器，需要反转 :checked 选择器
+                $("input[name='a']:not(:checked)").map(function () {
+                    let data = values.filter(x => x.name == this.id)[0]
+                    data.color = colors.shift()
+                    displayValues.push(data)
+                })
+                $("input[name='a']").prop('checked', true)
+            } else {
+                displayValues.forEach(data => {
+                    colors.push(data.color)
+                })
+                displayValues = []
+                $("input[name='a']").prop('checked', false)
+            }
+            RadarChart(".radarChart", displayValues.map(x => x.color), displayValues.map(x => x.name), displayValues.map(x => x.value), radarChartOptions);
         });
     })
 
