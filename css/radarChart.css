@@ -1,5 +1,7 @@
 .radar {
-    display: inline-flex;
+    border: 1px solid brown;
+    width: 960px;
+    display: flex;
 }
 
 .radarChart {
@@ -10,13 +12,11 @@
     text-align: center;
     /* text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff; */
     cursor: default;
-    /* border: solid 1px #554141; */
     width: 600px !important;
     height: 600px !important;
     /*background-image: url("../images/radar4.png");*/
-
-
-    display: inline-flex;
+    display: flex;
+    margin: 0 50px;
 }
 
 .legend {
@@ -31,24 +31,20 @@
 }
 
 .radarBtns {
- 
     font-size: 14px;
-    border: solid 1px #554141; 
-    /*display:table-cell;*/
     overflow:auto;
-    width:300px;
-    height:600px
+    width:150px;
+    height:600px;
+    margin-left: 50px;
 }
 
 .radarBtns .radar-checkbox {
     width: 140px;
-    height: 25px;  
-    line-height: 25px;
+    height: 30px;  
+    line-height: 30px;
     margin-top: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
-    display: list-item;
-    display:inline-block;
 }
