@@ -1,3 +1,4 @@
+// jquery 使用echart 构建 cast network 图
 $(document.getElementById("network-echart")).ready(function () {
     console.log("network-echart contruct")
 
@@ -7,7 +8,7 @@ $(document.getElementById("network-echart")).ready(function () {
     // $.get('../tmp/network_echart_director_top30.json', function (networkJson) {
     $.get('../json/network_echart_main_actor.json', function (networkJson) {
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('network-echart'));
+        let myChart = echarts.init(document.getElementById('network-echart'));
 
         option = {
             title: {
