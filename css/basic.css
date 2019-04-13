@@ -1,4 +1,4 @@
-.mark {
+.hidden-mark {
     position: relative;
     top: -80px;
     display: block;
@@ -8,4 +8,16 @@
 
 .mr10 {
     margin-right: 10px
+}
+
+.carousel-desc {}
+
+.left-carousel-arrow {
+    width: 50px;
+    left: -50px !important;
+}
+
+.right-carousel-arrow {
+    width: 50px;
+    right: -50px !important;
 }

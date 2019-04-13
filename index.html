@@ -15,10 +15,12 @@
 
 	<!--加载cdn资源-->
 	<link href="https://cdn.bootcss.com/vis/4.21.0/vis.min.css" rel="stylesheet">
-	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
 	<script src="https://cdn.bootcss.com/vis/4.21.0/vis.min.js"></script>
 	<script src="https://cdn.bootcss.com/d3/3.5.17/d3.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 	<!-- Google fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
@@ -41,13 +43,13 @@
 <body>
 	<div class="nav">
 		<div style="width: 5rem; height: 5rem; line-height: 5rem;">
-			<img src="./images/logo.png" alt="The Movie Database (TMDb)"
-				style="width: 100px;vertical-align: middle;">
+			<img src="./images/logo.png" alt="The Movie Database (TMDb)" style="width: 100px;vertical-align: middle;">
 		</div>
 		<ul class="menu">
 			<li><a href=""><span>Home</span></a></li>
 			<li><a href="#description"><span>Description</span></a></li>
-			<li><a href="#data"><span>Data</span></a></li>
+			<li><a href="#overview"><span>Overview</span></a></li>
+			<li><a href="#composition analysis"><span>Composition</span></a></li>
 			<li><a href="#network"><span>Network</span></a></li>
 			<li><a href="https://github.com/AlexTK2012/HKU-7507-Visual-Analysis" target="_blank"><span>Git
 						Repo</span></a></li>
@@ -60,15 +62,13 @@
 			<div class="title">
 				<h1>Visual Analysis of influential films’ composition</h1>
 			</div>
-
 			 -->
-			
 			<div class="bg"></div>
 		</div>
 	</div>
 	<div class="app">
 		<div class="content">
-			<a name="description" class="mark"></a>
+			<a name="description" class="hidden-mark"></a>
 			<section>
 				<h2 class="subtitle">Description</h2>
 				<p>
@@ -87,60 +87,248 @@
 					affecting factors by considering these factors.
 				</p>
 			</section>
-			<a name="data" class="mark"></a>
+			<a name="overview" class="hidden-mark"></a>
 			<section>
-				<h2 class="subtitle">Data</h2>
-				<div><a href="https://www.kaggle.com/tmdb/tmdb-movie-metadata/version/2" target="_blank">[TMDB
-						5000 Movie Dataset]</a></div>
-				<p>
-					When people define a successful movie, revenue and average rate are two most frequently mentioned
-					factors. For the audience,
-					they want to know if the unreleased movie is worth watching. More importantly, from a business
-					perspective, companies desire
-					to understand how to make great works. In this research, we analyze The Movie Database which has
-					almost 5000 movies, including
-					attributes such as name, genre, actor, director, average rate, revenue, budget, runtime, original
-					language. We want to seek for
-					the definition for influential movies in this process , solve problems how genre and budget, effect
-					on rate and revenue, get the
-					answer for good actors and directors, and find reliable production company. Finally, to find out
-					which elements are the main
-					affecting factors by considering these factors.
-				</p>
+				<h2 class="subtitle">Overview</h2>
+				<div class='tableauPlaceholder' id='viz1554539522437' style='position: relative'><noscript><a
+							href=''><img alt=' '
+								src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ti&#47;title_p_r&#47;Sheet1&#47;1_rss.png'
+								style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'>
+						<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+						<param name='embed_code_version' value='3' />
+						<param name='site_root' value='' />
+						<param name='name' value='title_p_r&#47;Sheet1' />
+						<param name='tabs' value='no' />
+						<param name='toolbar' value='yes' />
+						<param name='static_image'
+							value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ti&#47;title_p_r&#47;Sheet1&#47;1.png' />
+						<param name='animate_transition' value='yes' />
+						<param name='display_static_image' value='yes' />
+						<param name='display_spinner' value='yes' />
+						<param name='display_overlay' value='yes' />
+						<param name='display_count' value='yes' />
+						<param name='filter' value='publish=yes' /></object></div>
+				<script type='text/javascript'>
+					var divElement = document.getElementById('viz1554539522437');
+					var vizElement = divElement.getElementsByTagName('object')[0];
+					vizElement.style.width = '100%';
+					vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+					var scriptElement = document.createElement('script');
+					scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+					vizElement.parentNode.insertBefore(scriptElement, vizElement);
+				</script>
 			</section>
+			<a name="composition analysis" class="hidden-mark"></a>
 			<section>
-				<h2 class="subtitle">Movie_p_r</h2>
-				<div class='tableauPlaceholder' id='viz1554539522437' style='position: relative'><noscript><a href=''><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ti&#47;title_p_r&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='title_p_r&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ti&#47;title_p_r&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1554539522437');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+				<h2 class="subtitle">Composition Analysis</h2>
+				<!-- 使用bootstrap carousel 控件, 关闭自动滚动 -->
+				<div id="myCarousel" class="carousel slide" data-interval="false">
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner">
+						<div class="item active">
+							<p class="carousel-desc">Genre_r</p>
+
+							<div class='tableauPlaceholder' id='viz1554540919595' style='position: relative'>
+								<noscript>
+									<a href=''><img alt=' '
+											src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;di&#47;diagram_genre_r&#47;Sheet1&#47;1_rss.png'
+											style='border: none' /></a>
+								</noscript>
+								<object class='tableauViz' style='display:none;'>
+									<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+									<param name='embed_code_version' value='3' />
+									<param name='site_root' value='' />
+									<param name='name' value='diagram_genre_r&#47;Sheet1' />
+									<param name='tabs' value='no' />
+									<param name='toolbar' value='yes' />
+									<param name='static_image'
+										value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;di&#47;diagram_genre_r&#47;Sheet1&#47;1.png' />
+									<param name='animate_transition' value='yes' />
+									<param name='display_static_image' value='yes' />
+									<param name='display_spinner' value='yes' />
+									<param name='display_overlay' value='yes' />
+									<param name='display_count' value='yes' />
+									<param name='filter' value='publish=yes' /></object>
+							</div>
+							<script type='text/javascript'>
+								var divElement = document.getElementById('viz1554540919595');
+								var vizElement = divElement.getElementsByTagName('object')[0];
+								vizElement.style.width = '100%';
+								vizElement.style.height = '734.25px';
+								var scriptElement = document.createElement('script');
+								scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+								vizElement.parentNode.insertBefore(scriptElement, vizElement);
+							</script>
+
+						</div>
+						<div class="item">
+							<p class="carousel-desc">Genre_p</p>
+
+							<div class='tableauPlaceholder' id='viz1554540363339' style='position: relative'>
+								<noscript>
+									<a href=''><img alt=' '
+											src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;di&#47;diagram_genre_p&#47;Sheet1&#47;1_rss.png'
+											style='border: none' /></a>
+								</noscript>
+								<object class='tableauViz' style='display:none;'>
+									<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+									<param name='embed_code_version' value='3' />
+									<param name='site_root' value='' />
+									<param name='name' value='diagram_genre_p&#47;Sheet1' />
+									<param name='tabs' value='no' />
+									<param name='toolbar' value='yes' />
+									<param name='static_image'
+										value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;di&#47;diagram_genre_p&#47;Sheet1&#47;1.png' />
+									<param name='animate_transition' value='yes' />
+									<param name='display_static_image' value='yes' />
+									<param name='display_spinner' value='yes' />
+									<param name='display_overlay' value='yes' />
+									<param name='display_count' value='yes' />
+									<param name='filter' value='publish=yes' />
+								</object>
+							</div>
+							<script type='text/javascript'>
+								var divElement = document.getElementById('viz1554540363339');
+								var vizElement = divElement.getElementsByTagName('object')[0];
+								vizElement.style.width = '100%';
+								vizElement.style.height = '734.25px';
+								var scriptElement = document.createElement('script');
+								scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+								vizElement.parentNode.insertBefore(scriptElement, vizElement);
+							</script>
+
+						</div>
+						<div class="item">
+							<p class="carousel-desc">Runtime_p</p>
+
+							<div class='tableauPlaceholder' id='viz1554541593024' style='position: relative'>
+								<noscript>
+									<a href=''><img alt=' '
+											src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ru&#47;runtime_p&#47;Sheet1&#47;1_rss.png'
+											style='border: none' /></a></noscript><object class='tableauViz'
+									style='display:none;'>
+									<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+									<param name='embed_code_version' value='3' />
+									<param name='site_root' value='' />
+									<param name='name' value='runtime_p&#47;Sheet1' />
+									<param name='tabs' value='no' />
+									<param name='toolbar' value='yes' />
+									<param name='static_image'
+										value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ru&#47;runtime_p&#47;Sheet1&#47;1.png' />
+									<param name='animate_transition' value='yes' />
+									<param name='display_static_image' value='yes' />
+									<param name='display_spinner' value='yes' />
+									<param name='display_overlay' value='yes' />
+									<param name='display_count' value='yes' />
+									<param name='filter' value='publish=yes' />
+								</object>
+							</div>
+							<script type='text/javascript'>
+								var divElement = document.getElementById('viz1554541593024');
+								var vizElement = divElement.getElementsByTagName('object')[0];
+								vizElement.style.width = '100%';
+								vizElement.style.height = '734.25px';
+								var scriptElement = document.createElement('script');
+								scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+								vizElement.parentNode.insertBefore(scriptElement, vizElement);
+							</script>
+						</div>
+
+						<div class="item">
+							<p class="carousel-desc">actor_p_r</p>
+							<div class='tableauPlaceholder' id='viz1554541903232' style='position: relative'>
+								<noscript>
+									<a href=''><img alt=' '
+											src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ac&#47;actor_p_r&#47;Sheet1&#47;1_rss.png'
+											style='border: none' /></a>
+								</noscript>
+								<object class='tableauViz' style='display:none;'>
+									<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+									<param name='embed_code_version' value='3' />
+									<param name='site_root' value='' />
+									<param name='name' value='actor_p_r&#47;Sheet1' />
+									<param name='tabs' value='no' />
+									<param name='toolbar' value='yes' />
+									<param name='static_image'
+										value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ac&#47;actor_p_r&#47;Sheet1&#47;1.png' />
+									<param name='animate_transition' value='yes' />
+									<param name='display_static_image' value='yes' />
+									<param name='display_spinner' value='yes' />
+									<param name='display_overlay' value='yes' />
+									<param name='display_count' value='yes' />
+									<param name='filter' value='publish=yes' />
+								</object>
+							</div>
+							<script type='text/javascript'>
+								var divElement = document.getElementById('viz1554541903232');
+								var vizElement = divElement.getElementsByTagName('object')[0];
+								vizElement.style.width = '100%';
+								vizElement.style.height = '734.25px';
+								var scriptElement = document.createElement('script');
+								scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+								vizElement.parentNode.insertBefore(scriptElement, vizElement);
+							</script>
+						</div>
+
+						<div class="item">
+							<p class="carousel-desc">Unidirector_p_r</p>
+
+							<div class='tableauPlaceholder' id='viz1554542028360' style='position: relative'>
+								<noscript>
+									<a href=''><img alt=' '
+											src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Un&#47;Unidirector_p_r&#47;Sheet1&#47;1_rss.png'
+											style='border: none' /></a></noscript><object class='tableauViz'
+									style='display:none;'>
+									<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+									<param name='embed_code_version' value='3' />
+									<param name='site_root' value='' />
+									<param name='name' value='Unidirector_p_r&#47;Sheet1' />
+									<param name='tabs' value='no' />
+									<param name='toolbar' value='yes' />
+									<param name='static_image'
+										value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Un&#47;Unidirector_p_r&#47;Sheet1&#47;1.png' />
+									<param name='animate_transition' value='yes' />
+									<param name='display_static_image' value='yes' />
+									<param name='display_spinner' value='yes' />
+									<param name='display_overlay' value='yes' />
+									<param name='display_count' value='yes' />
+									<param name='filter' value='publish=yes' />
+								</object>
+							</div>
+							<script type='text/javascript'>
+								var divElement = document.getElementById('viz1554542028360');
+								var vizElement = divElement.getElementsByTagName('object')[0];
+								vizElement.style.width = '100%';
+								vizElement.style.height = '734.25px';
+								var scriptElement = document.createElement('script');
+								scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+								vizElement.parentNode.insertBefore(scriptElement, vizElement);
+							</script>
+
+						</div>
+					</div>
+
+					<!-- Left and right controls -->
+					<a class="left carousel-control left-carousel-arrow" href="#myCarousel" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control right-carousel-arrow" href="#myCarousel" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
 			</section>
-			<section>
-				<h2 class="subtitle">Genre_r</h2>
-				<div class='tableauPlaceholder' id='viz1554540919595' style='position: relative'><noscript><a href=''><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;di&#47;diagram_genre_r&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='diagram_genre_r&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;di&#47;diagram_genre_r&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1554540919595');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-			</section>
-			<section>
-				<h2 class="subtitle">Genre_p</h2>
-				<div class='tableauPlaceholder' id='viz1554540363339' style='position: relative'><noscript><a href=''><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;di&#47;diagram_genre_p&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='diagram_genre_p&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;di&#47;diagram_genre_p&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1554540363339');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-			</section>
-			<section>
-				<h2 class="subtitle">Runtime_p</h2>
-				<div class='tableauPlaceholder' id='viz1554541593024' style='position: relative'><noscript><a href=''><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ru&#47;runtime_p&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='runtime_p&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ru&#47;runtime_p&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1554541593024');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-			</section>
-			<section>
-				<h2 class="subtitle">actor_p_r</h2>
-				<div class='tableauPlaceholder' id='viz1554541903232' style='position: relative'><noscript><a href=''><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ac&#47;actor_p_r&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='actor_p_r&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ac&#47;actor_p_r&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1554541903232');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-			</section>
-			<section>
-				<h2 class="subtitle">Unidirector_p_r</h2>
-				<div class='tableauPlaceholder' id='viz1554542028360' style='position: relative'><noscript><a href=''><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Un&#47;Unidirector_p_r&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Unidirector_p_r&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Un&#47;Unidirector_p_r&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1554542028360');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-			</section>
-			<a name="radarChart" class="mark"></a>
+
+			<a name="radarChart" class="hidden-mark"></a>
 			<section>
 				<h2 class="subtitle">Radar chart - The ability of a director</h2>
 				<div class="radar">
 					<div id="radar-chart" class="radarChart"></div>
 					<div id="radar-btns" class="radarBtns"></div>
-				</div>		
+				</div>
 			</section>
-			<a name="network" class="mark"></a>
+			<a name="network" class="hidden-mark"></a>
 			<section>
 				<h2 class="subtitle">Network</h2>
 				<!-- <svg width="320" height="91" viewBox="0 0 320 91" preserveAspectRatio="xMidYMid meet">
@@ -152,12 +340,12 @@
 					<use xlink:href="#test-svg" id="path_2"></use>
 				</svg> -->
 				<div id="network-echart" class="network-echart"></div>
-			</section>	
-			<a name="company" class="mark"></a>
+			</section>
+			<a name="company" class="hidden-mark"></a>
 			<section>
 				<h2 class="subtitle">Company</h2>
 				<div id="company-echart" class="company-echart"></div>
-			</section>		
+			</section>
 		</div>
 		<div class="footer">
 			Copyright © 2019 Master of Computer Science, Faculty of Engineering, The
