@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     // 定义颜色
     // let color = d3.scale.ordinal().range(["#EDC951", "#CC333F", "#00A0B0"]);
-    let colors = ["#EDC951", "#CC333F", "#00A0B0"]
+    let colors = ["#B71C1C", "#AD1457", "#8E24AA","#F4D03F","#3F51B5","#F1948A","#0097A7","#388E3C","#FFEE58","#EEEEEE"]
 
     let radarChartOptions = {
         w: width,
@@ -79,7 +79,7 @@ $(document).ready(function () {
             //设置name为'a' 的input标签的属性为true,表示不可选
             $("input[name='a']").attr('disabled', true);
 
-            if ($("input[name='a']:checked").length >= 3) {
+            if ($("input[name='a']:checked").length >= 10) {
                 //选中个数大于3, 只有已被选中的可以点击
                 $("input[name='a']:checked").attr('disabled', false);
             } else {

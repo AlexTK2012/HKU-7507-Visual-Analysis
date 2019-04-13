@@ -20,7 +20,7 @@ html,body {
     justify-content: space-between;
     align-items: center;
     background-image: url("../images/what-the-hex-dark.png");
-    opacity: 0.8;
+    opacity: 0.9;
     /*background: #000*/
 }
 
@@ -79,7 +79,7 @@ html,body {
 
 .header .title h1 {
     margin: 0 auto;
-    color: #000;
+    color: #0D47A1;
     width: fit-content;
     border-bottom: 2px solid var(--theme-color)
 }
@@ -95,7 +95,8 @@ html,body {
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-    background: #000;
+    background: #141414;
+    
     box-shadow: 0 1px 1px 0 rgba(0,0,0,0.16);
 }
 
