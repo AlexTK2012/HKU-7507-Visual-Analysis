@@ -7,7 +7,11 @@
 }
 
 .mr10 {
-    margin-right: 10px
+    margin-right: 10px;
+}
+
+.mt30 {
+    margin-top: 30px;
 }
 
 .carousel-desc {}
