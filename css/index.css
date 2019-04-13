@@ -20,7 +20,7 @@ html,body {
     justify-content: space-between;
     align-items: center;
     background-image: url("../images/what-the-hex-dark.png");
-    
+    opacity: 0.8;
     /*background: #000*/
 }
 
