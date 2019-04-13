@@ -1,4 +1,5 @@
 // jquery
+// 使用radarChart.js 绘画雷达图
 $(document).ready(function () {
     // 这边强烈个人适配了，建议阅读源码，Git 地址在ReadMe中
     /******** radarChart 基本参数设置 */

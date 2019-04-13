@@ -1,4 +1,5 @@
 // jquery
+// d3 构建network ，即将废弃
 $(document.getElementById("network-d3")).ready(function () {
     console.log("network-d3 contruct")
 

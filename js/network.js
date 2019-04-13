@@ -2,6 +2,7 @@
 $(document).ready(function () {
     console.log("页面已经加载完毕");
 
+    // vis 构建network ，已废弃
     // 加载 网络图数据
     $(document.getElementById("network-chart")).ready(function () {
         // load_json();
