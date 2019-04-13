@@ -43,5 +43,6 @@ visit [website](http://localhost:8000)
 
 ## Dependencies
 
+[Exploring Movie Data with Interactive Visualizations](https://towardsdatascience.com/exploring-movie-data-with-interactive-visualizations-c22e8ce5f663)
 [Vis.js Network](http://visjs.org/docs/network/)
 [d3.js radar chart](https://www.visualcinnamon.com/2015/10/different-look-d3-radar-chart.html)
