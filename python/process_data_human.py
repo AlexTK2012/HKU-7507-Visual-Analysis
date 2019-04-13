@@ -81,6 +81,7 @@ def compute_main_human_data(dataframe):
                 item = {'id': crew['id'], 'name': crew['name'],
                         'job': 'Director', 'gender': crew['gender']}
                 data.append(item)
+                # Kevin Costner 即是主演也是主导演，去重的时候，把他作为主导演的数据去掉了。
                 # if item['id'] == 1269:
                 #     print(item)
                 director_number += 1

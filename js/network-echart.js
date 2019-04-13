@@ -10,16 +10,33 @@ $(document.getElementById("network-echart")).ready(function () {
         var myChart = echarts.init(document.getElementById('network-echart'));
 
         option = {
-            legend: {
-                data: ['Actor', 'Director']
+            title: {
+                text: 'Top100 Movies Main Character Relationship Network',
+                padding:[10,10],    //设置上下的内边距为 10，左右的内边距为 10
             },
-            animation: true,
-            tooltip: { //提示框浮层,可完全自定义
+            legend: {
+                data: ['Actor', 'Director'],
+                orient:'vertical',  //图例列表的布局朝向
+                align: 'left',  //图例标记和文本的对齐,根据组件的位置和 orient 决定
+                left:'10px',    //图例组件离容器左侧的距离
+                top:'8%'   
+            },
+            animation: true,    //开启动画
+            tooltip: {
+                //提示框浮层内容格式器，支持字符串模板和回调函数两种形式。
                 formatter: function (obj) {
-                    // 计算此人共事人数:此处计算规则要和python 里一致
-                    let value = (obj.data.symbolSize - 4) / 2
-                    return '<div style="font-size: 18px;margin: 7px">' +
-                        obj.data.job + ' ' + obj.name + ' has worked with ' + value + ' people.</div>';
+                    if (obj.dataType == "edge") {
+                        return '<div style="font-size: 18px;margin: 7px">' +
+                            obj.data.source + ' and ' + obj.data.target + ' have worked together ' +
+                                obj.data.lineStyle.width + ' times.</div>';
+                    } else if (obj.dataType == "node") {
+                        // 计算此人共事人数:此处计算规则要和python 里一致
+                        let value = (obj.data.symbolSize - 4) / 2
+                        return '<div style="font-size: 18px;margin: 7px">' +
+                            obj.data.job + ' ' + obj.name + ' has worked with ' + value + ' people.</div>';
+                    }else{
+                        console.log(obj)
+                    }
                 }
             },
             legendHoverLink: false, //是否启用图例 hover 时的联动高亮。
