@@ -40,9 +40,8 @@ result['month'] = 0
 
 print("result : ", len(result))
 
-# 加载month 规则，淡季旺季
 
-
+# 加载 month 规则，淡季旺季
 def loadMonth():
     m_df = pd.read_csv("./data/rule_release_month.csv")
     # for x in df.iloc[0:100]:
@@ -50,10 +49,25 @@ def loadMonth():
     result['month'] = df['release_date'].apply(
         lambda x: m_df[m_df['Month'] == int(x.split('-')[1])]['Rate'].iloc[0])
 
-    # result['month']
-
-
 loadMonth()
+
+
+# 加载 actor_experience & director_experience
+def loadCastExperience():
+    e_df = pd.read_csv("./data/rule_cast_experience.csv")
+    result['actor_experience'] = df['id'].apple(lambda x : e_df[e_df['movie_id']==x]['actor_experience']
+    result['director_experience'] = df['id'].apple(lambda x : e_df[e_df['movie_id']==x]['director_experience']
+
+loadCastExperience()
+
+
+# 加载 director ability & company 
+def loadCompany():
+    c_df = pd.read_csv("./data/rule_company&director_X.csv")
+    result['actor_experience'] = c_df['Company_X']
+    result['director_experience'] = e_df['Director_X']
+
+loadCompany()
 
 # 定义归一化函数 (归到[0:10])
 def max_min_scaler(x): return (x-np.min(x))/(np.max(x)-np.min(x))*10

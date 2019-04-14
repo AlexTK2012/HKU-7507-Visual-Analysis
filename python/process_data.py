@@ -10,6 +10,8 @@ movie_id,title,cast,crew
 Goal:生成导演和演员的关系, 生成json 文件,格式参见network_vis.json
 
 Result：数据太大，展示效果不好，体现不了价值
+
+已废弃！！！
 """
 
 import json
