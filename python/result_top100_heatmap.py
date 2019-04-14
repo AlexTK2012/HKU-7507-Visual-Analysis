@@ -4,26 +4,13 @@
 计算前100 movie 数据的最后结果，保存为csv 文件.
 格式:
 movie id,score(影响力),actor experience(合作人数*平均票房),director ability(雷达图sum),director experience(合作人数*平均票房),
-company(第一个公司的总票房),genre(票房/评分),budget,runtime(根据散点图划分区间，计算每个区间X值),time(划分淡季旺季)
+company(第一个公司的总票房),genre(票房/评分),budget,runtime(根据散点图划分区间，计算每个区间X值),month(划分淡季旺季)
 
 """
 
 import json
 import pandas as pd
 import numpy as np
-
-# 加载movies 表
-
-
-def load_tmdb_movies(path):
-    df = pd.read_csv(path)
-    return df
-
-
-# 加载credits 表
-def load_tmdb_credits(path):
-    df = pd.read_csv(path)
-    return df
 
 
 # 写json 文件
@@ -33,17 +20,12 @@ def write_json(path, data):
         json.dump(data, f)
 
 
-# 写入csv
-def write_csv(path, dataframe):
-    dataframe.to_csv(path, index=False, sep=',')
-
-
 # 加载top100 原始数据
-df = load_tmdb_movies("./data/tmdb_top100_data.csv")
+df = pd.read_csv("./data/tmdb_top100_data.csv")
 
 print("len : ", len(df))
 
-# movie_id,score,actor_experience,director_ability,director_experience,company,genre,budget,runtime,time
+# movie_id,score,actor_experience,director_ability,director_experience,company,genre,budget,runtime,month
 result = pd.DataFrame()
 result['movie_id'] = df['id']
 result['score'] = df['score']
@@ -54,11 +36,45 @@ result['company'] = 0
 result['genre'] = 0
 result['budget'] = df['budget']
 result['runtime'] = 0
-result['time'] = 0
+result['month'] = 0
 
 print("result : ", len(result))
 
+# 加载month 规则，淡季旺季
 
 
-# 保存结果csv
-write_csv("./data/result_top100_heatmap.csv", result)
+def loadMonth():
+    m_df = pd.read_csv("./data/rule_release_month.csv")
+    # for x in df.iloc[0:100]:
+    #     print (x['release_date'])
+    result['month'] = df['release_date'].apply(
+        lambda x: m_df[m_df['Month'] == int(x.split('-')[1])]['Rate'].iloc[0])
+
+    # result['month']
+
+
+loadMonth()
+
+# 定义归一化函数 (归到[0:10])
+def max_min_scaler(x): return (x-np.min(x))/(np.max(x)-np.min(x))*10
+
+# 整体归一化
+# new_result = result.apply(lambda x: (x - np.min(x)) / (np.max(x) - np.min(x))*10)
+
+# 一个个处理
+new_result = pd.DataFrame()
+new_result['movie_id'] = result['movie_id']
+# 得分已经是归一化的
+new_result['score'] = round(result['score'].apply(lambda x : x*10),2)
+new_result['actor_experience'] = 0
+new_result['director_ability'] = 0
+new_result['director_experience'] = 0
+new_result['company'] = 0
+new_result['genre'] = 0
+new_result['budget'] = round(result[['budget']].apply(max_min_scaler),2)
+new_result['runtime'] = 0
+new_result['month'] = result[['month']].apply(max_min_scaler)
+
+# 保存结果csv & 归一化后的结果
+result.to_csv("./data/result_top100_heatmap.csv", index=False, sep=',')
+new_result.to_csv("./data/result_top100_heatmap_normalize.csv", index=False, sep=',')
