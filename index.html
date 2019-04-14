@@ -37,6 +37,7 @@
 	<script src="./js/loadRadarChart.js"></script>
 	<script src="./js/networkEchart.js"></script>
 	<script src="./js/companyEchart.js"></script>
+	<script src="./js/conclusionEchart.js"></script>
 
 </head>
 
@@ -50,9 +51,9 @@
 			<li><a href="#description"><span>Description</span></a></li>
 			<li><a href="#overview"><span>Overview</span></a></li>
 			<li><a href="#composition analysis"><span>Composition</span></a></li>
-			<li><a href="#network"><span>Network</span></a></li>
-			<li><a href="https://github.com/AlexTK2012/HKU-7507-Visual-Analysis" target="_blank"><span>Git
-						Repo</span></a></li>
+			<li><a href="#cast"><span>Cast</span></a></li>
+			<li><a href="#conclusion"><span>Conclusion</span></a></li>
+			<li><a href="https://github.com/AlexTK2012/HKU-7507-Visual-Analysis" target="_blank"><span>Git</span></a></li>
 		</ul>
 	</div>
 
@@ -90,6 +91,9 @@
 			<a name="overview" class="hidden-mark"></a>
 			<section>
 				<h2 class="subtitle">Overview</h2>
+				<p>
+					This is overview!
+				</p>
 				<div class='tableauPlaceholder' id='viz1554539522437' style='position: relative'><noscript><a
 							href=''><img alt=' '
 								src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ti&#47;title_p_r&#47;Sheet1&#47;1_rss.png'
@@ -118,6 +122,8 @@
 					vizElement.parentNode.insertBefore(scriptElement, vizElement);
 				</script>
 			</section>
+
+			<!-- 构成分析 -->
 			<a name="composition analysis" class="hidden-mark"></a>
 			<section>
 				<h2 class="subtitle">Composition Analysis</h2>
@@ -127,7 +133,6 @@
 					<div class="carousel-inner">
 						<div class="item active">
 							<p class="carousel-desc">Genre_r</p>
-
 							<div class='tableauPlaceholder' id='viz1554540919595' style='position: relative'>
 								<noscript>
 									<a href=''><img alt=' '
@@ -163,7 +168,6 @@
 						</div>
 						<div class="item">
 							<p class="carousel-desc">Genre_p</p>
-
 							<div class='tableauPlaceholder' id='viz1554540363339' style='position: relative'>
 								<noscript>
 									<a href=''><img alt=' '
@@ -200,7 +204,6 @@
 						</div>
 						<div class="item">
 							<p class="carousel-desc">Runtime_p</p>
-
 							<div class='tableauPlaceholder' id='viz1554541593024' style='position: relative'>
 								<noscript>
 									<a href=''><img alt=' '
@@ -272,7 +275,6 @@
 
 						<div class="item">
 							<p class="carousel-desc">Unidirector_p_r</p>
-
 							<div class='tableauPlaceholder' id='viz1554542028360' style='position: relative'>
 								<noscript>
 									<a href=''><img alt=' '
@@ -320,19 +322,19 @@
 				</div>
 			</section>
 
-			<a name="radarChart" class="hidden-mark"></a>
+			<!-- cast分析 -->
+			<a name="cast" class="hidden-mark"></a>
 			<section>
-				<h2 class="subtitle">Radar chart - The ability of a director</h2>
+				<h2 class="subtitle">Cast Analysis</h2>
+				<p>Radar chart - The ability of a director</p>
 				<div class="radar">
 					<div id="radar-chart" class="radarChart"></div>
 					<div id="radar-btns" class="radarBtns">
 						<label class='radar-checkbox'><input type='checkbox' name='all'>Select All</input></label>
 					</div>
 				</div>
-			</section>
-			<a name="network" class="hidden-mark"></a>
-			<section>
-				<h2 class="subtitle">Network</h2>
+
+				<p class="mt30">Network</p>
 				<!-- <svg width="320" height="91" viewBox="0 0 320 91" preserveAspectRatio="xMidYMid meet">
 					<symbol id="test-svg">
 						<text text-anchor="middle" x="155" y="64" fill-opacity="0"
@@ -342,11 +344,19 @@
 					<use xlink:href="#test-svg" id="path_2"></use>
 				</svg> -->
 				<div id="network-echart" class="network-echart"></div>
-			</section>
-			<a name="company" class="hidden-mark"></a>
-			<section>
-				<h2 class="subtitle">Company</h2>
+
+				<p class="mt30">Company</p>
 				<div id="company-echart" class="company-echart"></div>
+			</section>
+
+			<!-- 结论图（热力图） -->
+			<a name="conclusion" class="hidden-mark"></a>
+			<section>
+				<h2 class="subtitle">Conclusion</h2>
+				<p>
+					this is conclusion.
+				</p>
+				<div id="conclusion-echart" class="conclusion-echart"></div>
 			</section>
 		</div>
 		<div class="footer">

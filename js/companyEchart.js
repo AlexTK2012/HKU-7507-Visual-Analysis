@@ -11,7 +11,7 @@ $(document.getElementById("company-echart")).ready(function () {
 // 配置柱状体option
 function getBarOption() {
 
-    var option = {
+    let option = {
         dataset: {
             source: [
                 ['score', 'Revenue_m', 'company'],
