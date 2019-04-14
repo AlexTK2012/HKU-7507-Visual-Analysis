@@ -71,7 +71,8 @@ function getBarOption() {
            },
             dimension: 0,
             inRange: {
-                color: ['#1976D2','#B71C1C']
+                //color: ['#1976D2','#B71C1C']
+                color:['#0066FF','#CC0000'],
             }
         },
 

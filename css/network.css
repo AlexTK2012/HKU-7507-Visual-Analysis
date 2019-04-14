@@ -76,14 +76,14 @@
 .network-echart {
     width: 960px;
     height: 600px;
-    border: 1px solid brown;
+    border: 1px solid rgb(53, 56, 224);
     background: transparent;
 }
 
 .company-echart{
     width: 960px;
     height: 600px;
-    border: 1px solid brown;
+    border: 1px solid rgb(53, 56, 224);
     background:transparent;
    
 }
