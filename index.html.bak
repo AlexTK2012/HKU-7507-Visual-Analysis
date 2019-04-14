@@ -237,7 +237,7 @@
 							</script>
 						</div>
 
-						<!--<div class="item">
+						<div class="item">
 							<p class="carousel-desc">actor_p_r</p>
 							<div class='tableauPlaceholder' id='viz1554541903232' style='position: relative'>
 								<noscript>
@@ -308,7 +308,6 @@
 							</script>
 
 						</div>
-						!-->
 
 						<div class="item">
 							<p class="carousel-desc">release_time</p>
