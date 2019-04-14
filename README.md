@@ -4,6 +4,14 @@
 
 Term Project for **COMP7507 Visualization and Visual Analytics**.
 
+## Environment
+
+[![jquery](https://img.shields.io/badge/Jquery-v3.3.1-green.svg)](https://jquery.com)
+[![echart](https://img.shields.io/badge/Echart-v4.2.1-green.svg)](http://echartsjs.com/)
+[![d3](https://img.shields.io/badge/D3-v3.5.17-green.svg)](https://d3js.org)
+[![vis](https://img.shields.io/badge/Vis-v4.21.0-green.svg)](http://visjs.org)
+[![bootstrap](https://img.shields.io/badge/Bootstrap-v3.4.0-green.svg)](https://getbootstrap.com)
+
 ## Website
 
 [homepage](https://alextk2012.github.io/HKU-7507-Visual-Analysis/)
@@ -29,6 +37,8 @@ Term Project for **COMP7507 Visualization and Visual Analytics**.
 
 ## Process Data
 
+Calculate movies' score=0.5 * revenue + 0.5 * vote_average
+
 - tmdb_top100_data.csv : 100*25, Top 100 movie datasets. Movies Header(20) + Score + Credits Header(4)
 
 - human_data.json : All cast and director data: {id,name,job,gender}
@@ -44,5 +54,7 @@ visit [website](http://localhost:8000)
 ## Dependencies
 
 [Exploring Movie Data with Interactive Visualizations](https://towardsdatascience.com/exploring-movie-data-with-interactive-visualizations-c22e8ce5f663)
-[Vis.js Network](http://visjs.org/docs/network/)
-[d3.js radar chart](https://www.visualcinnamon.com/2015/10/different-look-d3-radar-chart.html)
+[Tableau](http://tableau.com/)
+[Bootstrap_carousel](https://www.w3schools.com/bootstrap/bootstrap_carousel.asp)
+[Network](http://visjs.org/docs/network/)
+[radar chart](https://www.visualcinnamon.com/2015/10/different-look-d3-radar-chart.html)
