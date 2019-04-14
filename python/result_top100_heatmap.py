@@ -46,28 +46,29 @@ def loadMonth():
     m_df = pd.read_csv("./data/rule_release_month.csv")
     # for x in df.iloc[0:100]:
     #     print (x['release_date'])
-    result['month'] = df['release_date'].apply(
-        lambda x: m_df[m_df['Month'] == int(x.split('-')[1])]['Rate'].iloc[0])
+    result['month'] = df['release_date'].apply(lambda x: m_df[m_df['Month'] == int(x.split('-')[1])]['Rate'].iloc[0])
 
 loadMonth()
-
+print ("loadMonth")
 
 # 加载 actor_experience & director_experience
 def loadCastExperience():
     e_df = pd.read_csv("./data/rule_cast_experience.csv")
-    result['actor_experience'] = df['id'].apple(lambda x : e_df[e_df['movie_id']==x]['actor_experience']
-    result['director_experience'] = df['id'].apple(lambda x : e_df[e_df['movie_id']==x]['director_experience']
+    result['actor_experience'] = df['id'].apply(lambda x : e_df[e_df['movie_id']==x]['actor_experience'].iloc[0])
+    result['director_experience'] = df['id'].apply(lambda x : e_df[e_df['movie_id']==x]['director_experience'].iloc[0])
 
 loadCastExperience()
-
+print ("loadCastExperience")
 
 # 加载 director ability & company 
 def loadCompany():
-    c_df = pd.read_csv("./data/rule_company&director_X.csv")
-    result['actor_experience'] = c_df['Company_X']
-    result['director_experience'] = e_df['Director_X']
+    c_df = pd.read_csv("./data/rule_company&director_X.csv") 
+    result['director_ability'] = df['id'].apply(lambda x : c_df[c_df['id']==x]['Director_X'].iloc[0])
+    result['company'] = df['id'].apply(lambda x : c_df[c_df['id']==x]['Company_X'].iloc[0])
 
 loadCompany()
+print ("loadCompany")
+
 
 # 定义归一化函数 (归到[0:10])
 def max_min_scaler(x): return (x-np.min(x))/(np.max(x)-np.min(x))*10
@@ -80,10 +81,10 @@ new_result = pd.DataFrame()
 new_result['movie_id'] = result['movie_id']
 # 得分已经是归一化的
 new_result['score'] = round(result['score'].apply(lambda x : x*10),2)
-new_result['actor_experience'] = 0
-new_result['director_ability'] = 0
-new_result['director_experience'] = 0
-new_result['company'] = 0
+new_result['actor_experience'] = round(result[['actor_experience']].apply(max_min_scaler),2)
+new_result['director_ability'] = round(result[['director_ability']].apply(max_min_scaler),2)
+new_result['director_experience'] = round(result[['director_experience']].apply(max_min_scaler),2)
+new_result['company'] = round(result[['company']].apply(max_min_scaler),2)
 new_result['genre'] = 0
 new_result['budget'] = round(result[['budget']].apply(max_min_scaler),2)
 new_result['runtime'] = 0
