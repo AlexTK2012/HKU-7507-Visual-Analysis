@@ -3,24 +3,37 @@ $(document.getElementById("conclusion-echart")).ready(function () {
     console.log("conclusion-echart contruct")
 
     let conclusionChart = echarts.init(document.getElementById('conclusion-echart'))
-    let option = getHeatmapOption()
-    conclusionChart.setOption(option);
 
+    // 加载 序列化后的结果文件
+    //D3 (目测异步)的加载csv
+    d3.text('../data/result_top100_heatmap_normalize.csv', function (data) {
+        let csvData = d3.csv.parseRows(data)
 
+        // 坐标轴
+        let xArray = Array.from({
+            length: 25
+        }, (_, index) => index + 1)
+        // 格式:movie_id,movie_title,score,actor_experience,director_ability,director_experience,company,genre,budget,runtime,month
+        let yArray = csvData.shift().splice(0, 2)
+        // yLength 应该为9（行数）
+        let yLength = yArray.length
+
+        // 数据 9行*N列
+        heatmapData = []
+        for (let x = 0; x < 25; x++) {
+            // line 内容是从y轴上到下, 共11个元素
+            let line = csvData[x]
+            for (let y = 0; y < yLength; y++) {
+                // y轴坐标, x轴坐标, 数值
+                heatmapData.push([y, x, line[yLength + 1 - y]])
+            }
+        }
+
+        let option = getHeatmapOption(xArray, yArray, heatmapData)
+        conclusionChart.setOption(option);
+    })
     // 配置热力图option
-    function getHeatmapOption() {
-        let hours = ['ab', 'bc', '2a', '3a', '4a', '5a', '6a',
-            '7a', '8a', '9a', '10a', '11a',
-            '12p', '1p', '2p', '3p', '4p', '5p',
-            '6p', '7p', '8p', '9p', '10p', '11p'
-        ];
-        let days = ['Saturday', 'Friday', 'Thursday',
-            'Wednesday', 'Tuesday', 'Monday', 'Sunday12'
-        ];
-
-        let data = [
-            [0, 0, 1.2],
-        ];
+    function getHeatmapOption(xArray, yArray, heatmapData) {
 
         // data1 = data.map(function (item) {
         //     return [item[1], item[0], item[2] || '-'];
@@ -37,7 +50,7 @@ $(document.getElementById("conclusion-echart")).ready(function () {
             },
             xAxis: {
                 type: 'category',
-                data: hours,
+                data: xArray,
                 axisLine: {
                     lineStyle: {
                         color: '#fff',
@@ -53,7 +66,7 @@ $(document.getElementById("conclusion-echart")).ready(function () {
             },
             yAxis: {
                 type: 'category',
-                data: days,
+                data: yArray,
                 axisLine: {
                     lineStyle: {
                         color: '#fff',
@@ -86,7 +99,7 @@ $(document.getElementById("conclusion-echart")).ready(function () {
             series: [{
                 name: 'Punch Card',
                 type: 'heatmap',
-                data: data,
+                data: heatmapData,
                 // label: {
                 //     normal: {
                 //         show: true

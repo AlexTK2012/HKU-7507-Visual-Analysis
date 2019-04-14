@@ -25,9 +25,10 @@ df = pd.read_csv("./data/tmdb_top100_data.csv")
 
 print("len : ", len(df))
 
-# movie_id,score,actor_experience,director_ability,director_experience,company,genre,budget,runtime,month
+# movie_id,movie_title,score,actor_experience,director_ability,director_experience,company,genre,budget,runtime,month
 result = pd.DataFrame()
 result['movie_id'] = df['id']
+result['movie_title'] = df['title_x']
 result['score'] = df['score']
 result['actor_experience'] = 0
 result['director_ability'] = 0
@@ -79,6 +80,7 @@ def max_min_scaler(x): return (x-np.min(x))/(np.max(x)-np.min(x))*10
 # 一个个处理
 new_result = pd.DataFrame()
 new_result['movie_id'] = result['movie_id']
+new_result['movie_title'] = result['movie_title']
 # 得分已经是归一化的
 new_result['score'] = round(result['score'].apply(lambda x : x*10),2)
 new_result['actor_experience'] = round(result[['actor_experience']].apply(max_min_scaler),2)
@@ -91,5 +93,5 @@ new_result['runtime'] = 0
 new_result['month'] = result[['month']].apply(max_min_scaler)
 
 # 保存结果csv & 归一化后的结果
-result.to_csv("./data/result_top100_heatmap.csv", index=False, sep=',')
+# result.to_csv("./data/result_top100_heatmap.csv", index=False, sep=',')
 new_result.to_csv("./data/result_top100_heatmap_normalize.csv", index=False, sep=',')
