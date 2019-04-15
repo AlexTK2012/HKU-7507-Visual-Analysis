@@ -10,13 +10,18 @@ $(document.getElementById("conclusion-echart")).ready(function () {
         let csvData = d3.csv.parseRows(data)
 
         // 坐标轴
+        // let xArray = Array.from({
+        //     length: 15
+        // }, (_, index) => (index + 1)).concat(
+        //     Array.from({
+        //         length: 10
+        //     }, (_, index) => (91 + index))
+        // )
+
+        // 分层抽样1，6，11...
         let xArray = Array.from({
-            length: 15
-        }, (_, index) => (index + 1)).concat(
-            Array.from({
-                length: 10
-            }, (_, index) => (91 + index))
-        )
+            length: 20
+        }, (_, index) => (index * 5) + 1)
 
         // 格式:movie_id,movie_title,score,actor_experience,director_ability,director_experience,company,genre,budget,runtime,month
         let yArray = csvData.shift().slice(2).reverse()

@@ -84,11 +84,15 @@ print("loadCompany")
 
 
 # 定义归一化函数 (归到[0:10])
-def max_min_scaler(x, threshold_max=-1):
+def max_min_scaler(x, threshold_max=-1, threshold_min=-1):
+    min_data = np.min(x)
     if threshold_max != -1:
         # 设置阀值上限
         x = x.apply(lambda t: min(t, threshold_max))
-    return (x-np.min(x))/(np.max(x)-np.min(x))*10
+    if threshold_min != -1:
+        # 设置阀值下限
+        min_data = threshold_min         
+    return (x-min_data)/(np.max(x)-min_data)*10
 
 
 # 一个个处理
@@ -96,7 +100,8 @@ new_result = pd.DataFrame()
 new_result['movie_id'] = result['movie_id']
 new_result['movie_title'] = result['movie_title']
 # 得分已经是归一化的
-new_result['score'] = round(result['score'].apply(lambda x: x*10), 2)
+# new_result['score'] = round(result['score'].apply(lambda x: x*10), 2)
+new_result['score'] = round(result[['score']].apply(lambda x: max_min_scaler(x, 0.7, 0.4)), 2)
 new_result['actor_experience'] = round(result[['actor_experience']].apply(max_min_scaler), 2)
 # 导演能力值，设置原数据阀值上限3.
 new_result['director_ability'] = round(result[['director_ability']].apply(lambda x: max_min_scaler(x, 3)), 2)
