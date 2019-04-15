@@ -24,8 +24,10 @@ $(document.getElementById("network-echart")).ready(function () {
                 orient:'vertical',  //图例列表的布局朝向
                 align: 'left',  //图例标记和文本的对齐,根据组件的位置和 orient 决定
                 left:'left',    //图例组件离容器左侧的距离
-                top:'top'   
-
+                top:'top',
+                textStyle : {
+                    color : '#fff',
+                }
             },
             color:['#0000FF','#CC0000'],
             
