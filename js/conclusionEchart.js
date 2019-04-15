@@ -11,8 +11,13 @@ $(document.getElementById("conclusion-echart")).ready(function () {
 
         // 坐标轴
         let xArray = Array.from({
-            length: 25
-        }, (_, index) => index + 1)
+            length: 15
+        }, (_, index) => (index + 1)).concat(
+            Array.from({
+                length: 10
+            }, (_, index) => (91 + index))
+        )
+
         // 格式:movie_id,movie_title,score,actor_experience,director_ability,director_experience,company,genre,budget,runtime,month
         let yArray = csvData.shift().slice(2).reverse()
         // yLength 应该为9（行数）
@@ -22,14 +27,14 @@ $(document.getElementById("conclusion-echart")).ready(function () {
         heatmapData = []
         movieIdData = []
         movieTitleData = []
-        for (let x = 0; x < 25; x++) {
-            // line 内容是从y轴上到下, 共11个元素
-            let line = csvData[x]
+        for (let x of xArray) {
+            // line 内容是从y轴上到下, 共9个元素
+            let line = csvData[x-1]
             movieIdData.push(line[0])
             movieTitleData.push(line[1])
             for (let y = 0; y < yLength; y++) {
                 // x轴坐标, y轴坐标, 数值
-                heatmapData.push([x, y, line[yLength + 1 - y]])
+                heatmapData.push([xArray.indexOf(x), y, line[yLength + 1 - y]])
             }
         }
 
@@ -105,7 +110,7 @@ $(document.getElementById("conclusion-echart")).ready(function () {
                 // }
             },
             series: [{
-                name: 'Punch Card',
+                // name: 'Punch Card',
                 type: 'heatmap',
                 data: heatmapData,
                 label: {
