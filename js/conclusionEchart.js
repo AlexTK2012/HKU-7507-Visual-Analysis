@@ -14,38 +14,46 @@ $(document.getElementById("conclusion-echart")).ready(function () {
             length: 25
         }, (_, index) => index + 1)
         // 格式:movie_id,movie_title,score,actor_experience,director_ability,director_experience,company,genre,budget,runtime,month
-        let yArray = csvData.shift().splice(0, 2)
+        let yArray = csvData.shift().slice(2).reverse()
         // yLength 应该为9（行数）
         let yLength = yArray.length
 
         // 数据 9行*N列
         heatmapData = []
+        movieIdData = []
+        movieTitleData = []
         for (let x = 0; x < 25; x++) {
             // line 内容是从y轴上到下, 共11个元素
             let line = csvData[x]
+            movieIdData.push(line[0])
+            movieTitleData.push(line[1])
             for (let y = 0; y < yLength; y++) {
-                // y轴坐标, x轴坐标, 数值
-                heatmapData.push([y, x, line[yLength + 1 - y]])
+                // x轴坐标, y轴坐标, 数值
+                heatmapData.push([x, y, line[yLength + 1 - y]])
             }
         }
 
-        let option = getHeatmapOption(xArray, yArray, heatmapData)
+        let option = getHeatmapOption(xArray, yArray, heatmapData, movieTitleData)
         conclusionChart.setOption(option);
     })
     // 配置热力图option
-    function getHeatmapOption(xArray, yArray, heatmapData) {
-
-        // data1 = data.map(function (item) {
-        //     return [item[1], item[0], item[2] || '-'];
-        // });
-
+    function getHeatmapOption(xArray, yArray, heatmapData, movieTitleData) {
         let option = {
             tooltip: {
-                position: 'top'
+                position: 'top',
+                formatter: function (obj) {
+                    // 显示 电影名 + value
+                    let cardValue = obj.value
+                    let cardName = movieTitleData[cardValue[0]]
+                    return "<div style='font-size: 18px;margin: 7px'>" + cardName + "</div>" +
+                        "<span style='display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:rgba(246,239,166,1);'></span>" +
+                        "<p style='display:inline-block'>" + cardValue[2] + "</p>"
+                }
             },
             animation: false,
             grid: {
                 height: '65%',
+                left: 120,
                 y: '15%'
             },
             xAxis: {
@@ -100,17 +108,17 @@ $(document.getElementById("conclusion-echart")).ready(function () {
                 name: 'Punch Card',
                 type: 'heatmap',
                 data: heatmapData,
-                // label: {
-                //     normal: {
-                //         show: true
-                //     }
-                // },
-                // itemStyle: {
-                //     emphasis: {
-                //         shadowBlur: 10,
-                //         shadowColor: 'rgba(0, 0, 0, 0.5)'
-                //     }
-                // }
+                label: {
+                    normal: {
+                        show: true
+                    }
+                },
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
             }]
         };
 
