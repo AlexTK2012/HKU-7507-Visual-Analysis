@@ -17,11 +17,19 @@ $(document.getElementById("conclusion-echart")).ready(function () {
         //         length: 10
         //     }, (_, index) => (91 + index))
         // )
+        //电影1-25
+        let xArray = Array.from({
+            length: 25
+        },(_,index) => (index)+1)
+
 
         // 分层抽样1，6，11...
-        let xArray = Array.from({
-            length: 20
-        }, (_, index) => (index * 5) + 1)
+        
+        //let xArray = Array.from({
+        //  length: 20
+        //}, (_, index) => (index * 5) + 1)
+
+
 
         // 格式:movie_id,movie_title,score,actor_experience,director_ability,director_experience,company,genre,budget,runtime,month
         let yArray = csvData.shift().slice(2).reverse()
@@ -108,8 +116,9 @@ $(document.getElementById("conclusion-echart")).ready(function () {
                 textStyle: {
                     color: '#fff'
                 },
+              
                 // show: false,
-                // inRange: {
+                //inRange: {
                 //     color: ['blue', 'rgba(3,4,5,0.4)', 'red'],
                 //     // symbolSize: [50, 100]
                 // }
