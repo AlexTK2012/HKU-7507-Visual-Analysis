@@ -29,7 +29,9 @@ $(document.getElementById("network-echart")).ready(function () {
                     color : '#fff',
                 }
             },
-            color:['#0000FF','#CC0000'],
+            color:['#3498DB','#CC0000'],
+
+            //#C0392B   //#AB47BC
             
             animation: true,    //开启动画
             tooltip: {
