@@ -144,6 +144,7 @@ html,body {
 
 .content .subtitle {
     margin: 0 0 20px 0;
+    font-family: 'THRONEGOTHIC';
 }
 
 .content .subtitle::before {
@@ -180,6 +181,7 @@ section .data__layout .intro li {
 
 section .data__layout .intro .subsubtitle {
     font-weight: bold;
+    
 }
 
 section .data__layout .intro .subsubtitle::before {
