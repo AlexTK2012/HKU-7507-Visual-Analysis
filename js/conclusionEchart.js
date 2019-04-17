@@ -118,10 +118,10 @@ $(document.getElementById("conclusion-echart")).ready(function () {
                 },
               
                 // show: false,
-                //inRange: {
-                //     color: ['blue', 'rgba(3,4,5,0.4)', 'red'],
-                //     // symbolSize: [50, 100]
-                // }
+                inRange: {
+                     color:['#FCE4EC','#D32F2F'],
+                     // symbolSize: [50, 100]
+                }
             },
             series: [{
                 // name: 'Punch Card',
