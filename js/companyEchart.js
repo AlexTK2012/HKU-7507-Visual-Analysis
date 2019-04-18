@@ -11,7 +11,7 @@ $(document.getElementById("company-echart")).ready(function () {
 // 配置柱状体option
 function getBarOption() {
 
-    let option = {
+    var option = {
         dataset: {
             source: [
                 ['score', 'Revenue_m', 'company'],
@@ -56,13 +56,20 @@ function getBarOption() {
         },
 
         grid: {
-            bottom:'20',
+            //bottom:'20',
             containLabel: true
     },
 
         xAxis: {name: 'Revenue_m'},
-        yAxis: {type: 'category'},
-        //yAxis: {name: 'category'},
+        yAxis: [{
+            type: 'category',
+            //data :  label,
+            axisLabel:{
+                interval:0
+            }
+        }],
+
+       // yAxis: {type: 'category'},
         visualMap: {
             orient: 'horizontal',
             left: 'center',
