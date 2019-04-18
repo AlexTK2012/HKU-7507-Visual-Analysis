@@ -5,7 +5,7 @@ $(document.getElementById("company-echart")).ready(function () {
     let companyChart = echarts.init(document.getElementById('company-echart'))
     let option = getBarOption()
     companyChart.setOption(option);
-    
+
 })
 
 // 配置柱状体option
@@ -22,7 +22,7 @@ function getBarOption() {
                 [34, 469.4113111, 'Marvel Studios'],
                 [26, 360.0595784, 'Lucasfilm'],
                 [20, 278.7965087, 'Ingenious Film Partners'],
-                [19, 264.2968586 , '1492 Pictures'],
+                [19, 264.2968586, '1492 Pictures'],
                 [18, 258.8564640, 'Warner Bros'],
                 [18, 253.0468007, '21th Century Fox Film Corporation'],
                 [14, 204.8988651, 'Pixar Animation Studios'],
@@ -46,30 +46,36 @@ function getBarOption() {
                 [2, 37.3304070, 'Miramax Films'],
                 [2, 32.7311859, 'New Line Cinema'],
                 [2, 31.2941469, 'Castle Rock Entertainment'],
-                
+
                 [1, 28.9847354, 'Vertigo Entertainment'],
                 [1, 27.2742922, 'Orion Pictures'],
                 [1, 23.5860116, 'Touchstone Pictures'],
                 [1, 23.3555708, 'Black Bear Pictures']
-                
+
             ]
         },
 
         grid: {
-            //bottom:'20',
+            top:'20',
+            bottom:'30',
             containLabel: true
-    },
+        },
 
-        xAxis: {name: 'Revenue_m'},
+        xAxis: {
+            name: 'Revenue_m',
+            splitLine: {
+                show: false
+            }
+        },
         yAxis: [{
             type: 'category',
             //data :  label,
-            axisLabel:{
-                interval:0
+            axisLabel: {
+                interval: 0
             }
         }],
 
-       // yAxis: {type: 'category'},
+        // yAxis: {type: 'category'},
         visualMap: {
             orient: 'horizontal',
             left: 'center',
@@ -78,31 +84,29 @@ function getBarOption() {
             text: ['Highest Revenue(million)', 'Lowest Revenue(million)'],
             // Map the score column to color
             textStyle: {
-                color: 'white'          // 图例文字颜色
-           },
+                color: 'white' // 图例文字颜色
+            },
             dimension: 0,
             inRange: {
                 //color: ['#1976D2','#B71C1C']
-                color:['#0066FF','#CC0000'],
+                color: ['#0066FF', '#CC0000'],
             }
         },
 
         textStyle: {
-            color: 'white'          // 图例文字颜色
+            color: 'white' // 图例文字颜色
         },
-        series: [
-            {
-                type: 'bar',
-                encode: {
-                    // Map the "amount" column to X axis.
-                    x: 'Revenue_m',
-                    // Map the "product" column to Y axis
-                    y: 'company'
-                }
+        series: [{
+            type: 'bar',
+            encode: {
+                // Map the "amount" column to X axis.
+                x: 'Revenue_m',
+                // Map the "product" column to Y axis
+                y: 'company'
             }
-        ]
+        }]
 
-        
+
     };
     return option
 }
