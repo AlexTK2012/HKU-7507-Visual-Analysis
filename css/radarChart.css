@@ -2,6 +2,7 @@
     border: 1px solid rgb(53, 56, 224);
     width: 960px;
     display: flex;
+    margin: 0 auto;
 }
 
 .radarChart {

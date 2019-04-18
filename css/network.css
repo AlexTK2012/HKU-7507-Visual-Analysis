@@ -6,6 +6,7 @@
     width: 800px;
     height: 600px;
     border: 1px solid lightgray;
+    margin: 0 auto;
 }
 
 
@@ -78,6 +79,7 @@
     height: 600px;
     border: 1px solid rgb(53, 56, 224);
     background: transparent;
+    margin: 0 auto;
 }
 
 .company-echart{
@@ -85,6 +87,7 @@
     height: 600px;
     border: 1px solid rgb(53, 56, 224);
     background:transparent;
+    margin: 0 auto;
 }
 
 .conclusion-echart{
@@ -92,4 +95,5 @@
     height: 600px;
     border: 1px solid brown;
     background:transparent;
+    margin: 0 auto;
 }

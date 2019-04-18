@@ -54,7 +54,10 @@ function getBarOption() {
 
             ]
         },
+        tooltip:{
 
+            
+        },
         grid: {
             top:'20',
             bottom:'30',
@@ -80,13 +83,13 @@ function getBarOption() {
             orient: 'horizontal',
             left: 'center',
             min: 0,
-            max: 50,
+            max: 700,
             text: ['Highest Revenue(million)', 'Lowest Revenue(million)'],
             // Map the score column to color
             textStyle: {
                 color: 'white' // 图例文字颜色
             },
-            dimension: 0,
+            dimension: 1,
             inRange: {
                 //color: ['#1976D2','#B71C1C']
                 color: ['#0066FF', '#CC0000'],
