@@ -46,10 +46,8 @@ Calculate movies' score=0.5 * revenue + 0.5 * vote_average
 ## Run
 
 ``` python
-python3 -m http.server
+Double click index.html.
 ```
-
-visit [website](http://localhost:8000)
 
 ## Dependencies
 
