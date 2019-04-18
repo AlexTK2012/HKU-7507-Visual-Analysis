@@ -55,7 +55,11 @@ function getBarOption() {
             ]
         },
 
-        grid: {containLabel: true},
+        grid: {
+            bottom:'20',
+            containLabel: true
+    },
+
         xAxis: {name: 'Revenue_m'},
         yAxis: {type: 'category'},
         //yAxis: {name: 'category'},
