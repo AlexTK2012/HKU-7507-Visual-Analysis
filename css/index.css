@@ -146,7 +146,8 @@ html,body {
 
 .content .subtitle {
     margin: 0 0 20px 0;
-  
+    font-family: 'THRONEGOTHIC';
+    
 }
 
 .content .subtitle::before {
