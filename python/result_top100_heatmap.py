@@ -115,5 +115,4 @@ new_result['month'] = result[['month']].apply(max_min_scaler)
 
 # 保存结果csv & 归一化后的结果
 # result.to_csv("./data/result_top100_heatmap.csv", index=False, sep=',')
-new_result.to_csv("./data/result_top100_heatmap_normalize.csv",
-                  index=False, sep=',')
+new_result.to_csv("./data/result_top100_heatmap_normalize.csv",index=False, sep=',')
