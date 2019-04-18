@@ -34,13 +34,13 @@
 .radarBtns {
     font-size: 14px;
     overflow:auto;
-    width:150px;
+    width:200px;
     height:600px;
     margin-left: 50px;
 }
 
 .radarBtns .radar-checkbox {
-    width: 140px;
+    width: 200px;
     height: 30px;  
     line-height: 30px;
     margin-top: 10px;
@@ -48,4 +48,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
+}
+
+.radar-checkbox input{
+    margin-right: 10px;
 }
