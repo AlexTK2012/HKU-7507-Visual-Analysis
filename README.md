@@ -13,13 +13,13 @@ Term Project for **COMP7507 Visualization and Visual Analytics**.
 [![vis](https://img.shields.io/badge/Vis-v4.21.0-green.svg)](http://visjs.org)
 [![bootstrap](https://img.shields.io/badge/Bootstrap-v3.4.0-green.svg)](https://getbootstrap.com)
 
-## Website
-
-[homepage](https://alextk2012.github.io/HKU-7507-Visual-Analysis/)
-
 ## Project Documents
 
 [Proposal](https://docs.google.com/document/d/14E9eWycF5MX0oKUyZwmJY-5fs4PPzBHffhbfNvNlxcU/edit)
+
+## Live Video
+
+[3-min video](https://www.youtube.com/watch?v=SS8DJwjQIvo&t=12s)
 
 ## Developers
 
