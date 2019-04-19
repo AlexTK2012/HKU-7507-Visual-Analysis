@@ -6,6 +6,7 @@ Term Project for **COMP7507 Visualization and Visual Analytics**.
 
 ## Environment
 
+[![tableau](https://img.shields.io/badge/Tableau-online-green.svg)](http://tableau.com/)
 [![jquery](https://img.shields.io/badge/Jquery-v3.3.1-green.svg)](https://jquery.com)
 [![echart](https://img.shields.io/badge/Echart-v4.2.1-green.svg)](http://echartsjs.com/)
 [![d3](https://img.shields.io/badge/D3-v3.5.17-green.svg)](https://d3js.org)
